@@ -1,0 +1,8 @@
+# How it will be displayed in placeholders and such
+Display: '&#d5d5d7%gramsBalance%'
+# Initial balance for new players
+InitialBalance: 0.0
+# If it should persist (like after player rebirths)
+Persistent: false
+# Format for the balance
+DecimalFormat: '#,###.#'
