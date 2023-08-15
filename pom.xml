@@ -18,9 +18,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git@github.com:anjoismysign/BlobLumber.git</connection>
-        <developerConnection>scm:git:git@github.com:anjoismysign/BlobLumber.git</developerConnection>
-        <url>https://github.com/anjoismysign/BlobLumber</url>
+        <connection>scm:git:git@github.com:anjoismysign/BlobEconomy.git</connection>
+        <developerConnection>scm:git:git@github.com:anjoismysign/BlobEconomy.git</developerConnection>
+        <url>https://github.com/anjoismysign/BlobEconomy</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -109,13 +109,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>us.mytheria</groupId>
             <artifactId>bloblib</artifactId>
-            <version>1.690.4i</version>
+            <version>1.690.4m</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

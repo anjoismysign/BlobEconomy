@@ -1,8 +1,11 @@
 package us.mytheria.blobeconomy.director;
 
 import us.mytheria.blobeconomy.BlobEconomy;
+import us.mytheria.blobeconomy.director.commands.Deposit;
+import us.mytheria.blobeconomy.director.commands.Withdraw;
+import us.mytheria.blobeconomy.director.commands.WithdrawerCmd;
 import us.mytheria.blobeconomy.director.manager.ConfigManager;
-import us.mytheria.blobeconomy.director.manager.ListenerManager;
+import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
 import us.mytheria.blobeconomy.entities.BlobDepositor;
 import us.mytheria.blobeconomy.events.DepositorLoadEvent;
 import us.mytheria.blobeconomy.events.DepositorUnloadEvent;
@@ -12,38 +15,45 @@ import us.mytheria.bloblib.entities.currency.Currency;
 import us.mytheria.bloblib.entities.currency.WalletOwnerManager;
 
 public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> {
+    private WithdrawerUI withdrawerUI;
 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
         getRealFileManager().unpackYamlFile("/currency", "default");
+        registerMetaBlobInventory("Withdraw");
         addManager("ConfigManager", new ConfigManager(this));
-        addManager("ListenerManager", new ListenerManager(this));
+//        addManager("ListenerManager", new ListenerManager(this));
         addCurrencyDirector("Currency");
+        getCurrencyDirector().addNonAdminChildCommand(executorData -> Withdraw.command(executorData, this));
+        getCurrencyDirector().addNonAdminChildTabCompleter(executorData -> Withdraw.tabCompleter(executorData, this));
+        getCurrencyDirector().addNonAdminChildCommand(executorData -> Deposit.command(executorData, this));
+        getCurrencyDirector().addNonAdminChildTabCompleter(Deposit::tabCompleter);
+        getCurrencyDirector().addNonAdminChildTabCompleter(executorData -> WithdrawerCmd.tabCompleter(executorData, this));
+        getCurrencyDirector().addNonAdminChildCommand(executorData -> WithdrawerCmd.command(executorData, this));
         addWalletOwnerManager("DepositorManager",
-                x -> x,
-                BlobDepositor::new,
+                x -> x, crudable ->
+                        new BlobDepositor(crudable, this),
                 "BlobDepositor",
                 true,
                 DepositorLoadEvent::new,
                 DepositorUnloadEvent::new);
         getCurrencyDirector().whenObjectManagerFilesLoad(manager -> {
+            withdrawerUI = WithdrawerUI.getInstance(this);
             getDepositorManager().registerEconomy(manager.getObject("default"),
-                    this.getCurrencyDirector());
+                    getCurrencyDirector());
             getDepositorManager().registerDefaultEconomyCommand(getCurrencyDirector());
             getDepositorManager().registerPlaceholderAPIExpansion();
         });
     }
 
-    /**
-     * From top to bottom, follow the order.
-     */
     @Override
     public void reload() {
-        //reload directors
+        getCurrencyDirector().reload();
     }
 
     @Override
     public void unload() {
+        getDepositorManager().unload();
     }
 
     @Override
@@ -51,7 +61,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     }
 
     public final ObjectDirector<Currency> getCurrencyDirector() {
-        return super.getCurrencyDirector("Currency");
+        return getCurrencyDirector("Currency");
     }
 
     public final WalletOwnerManager<BlobDepositor> getDepositorManager() {
@@ -60,9 +70,5 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
 
     public final ConfigManager getConfigManager() {
         return getManager("ConfigManager", ConfigManager.class);
-    }
-
-    public final ListenerManager getListenerManager() {
-        return getManager("ListenerManager", ListenerManager.class);
     }
 }

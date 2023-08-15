@@ -1,8 +1,8 @@
 Database:
   Type: SQLITE
   IdentifierType: UUID
-  Host: localhost
-  Port: '3306'
+  Hostname: localhost
+  Port: 3306
   Database: database
   Username: admin
   Password: password

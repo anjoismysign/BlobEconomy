@@ -1,8 +1,31 @@
 # How it will be displayed in placeholders and such
 Display: '&#d5d5d7%gramsBalance%'
+# How its name will be displayed through messages and UIs
+Display-Name: 'silver'
 # Initial balance for new players
-InitialBalance: 0.0
+Initial-Balance: 0.0
 # If it should persist (like after player rebirths)
 Persistent: false
 # Format for the balance
-DecimalFormat: '#,###.#'
+Decimal-Format: '#,###.#'
+# If currency is tangible (has an item shape)
+Is-Tangible: true
+Tangible-Shapes:
+  Grain:
+    ItemStack:
+      Material: IRON_NUGGET
+      Amount: 1
+      DisplayName: "&#d5d5d7Grain"
+    Denomination: 1.0
+  FairNugget:
+    ItemStack:
+      Material: IRON_NUGGET
+      Amount: 1
+      DisplayName: "&#d5d5d7Fair Nugget"
+    Denomination: 5.0
+  BigNugget:
+    ItemStack:
+      Material: IRON_NUGGET
+      Amount: 1
+      DisplayName: "&#d5d5d7Big Nugget"
+    Denomination: 10.0

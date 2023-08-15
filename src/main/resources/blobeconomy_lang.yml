@@ -1,0 +1,23 @@
+Withdraw:
+  Amount:
+    Type: TITLE
+    Title: '&f&lAMOUNT'
+    Subtitle: '&7Type amount to withdraw'
+  Amount-Timeout:
+    Type: TITLE
+    Title: '&c&lTIMEOUT'
+    Subtitle: '&7You took too long to input amount'
+    BlobSound: Builder.Timeout
+  Insufficient-Balance:
+    Type: TITLE
+    Title: '&c&lNO FUNDS'
+    Subtitle: '&7Not enough funds to withdraw'
+    BlobSound: System.Alert
+  Amount-Too-Small:
+    Type: TITLE
+    Title: '&c&lTOO SMALL'
+    Subtitle: '&7Amount is too small to withdraw'
+    BlobSound: System.Alert
+  Successful:
+    Type: CHAT
+    Message: 'You have withdrawn %display%'

@@ -1,9 +1,14 @@
 name: BlobEconomy
 version: ${project.version}
 main: us.mytheria.blobeconomy.BlobEconomy
-api-version: 1.17
+api-version: 1.19
 load: STARTUP
 depend: [ BlobLib ]
 commands:
   eco:
-    description: economy command
+    description: "Manages economy"
+    usage: "/eco <give/take> <player> <amount> <key('silver' is default)>"
+    aliases: [ beco, blobeco, blobeconomy ]
+  currency:
+    description: "Manages currency"
+    usage: "/currency <add/remove>"

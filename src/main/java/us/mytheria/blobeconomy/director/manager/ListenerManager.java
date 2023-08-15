@@ -8,9 +8,4 @@ public class ListenerManager extends EconomyManager {
     public ListenerManager(EconomyManagerDirector managerDirector) {
         super(managerDirector);
     }
-
-    @Override
-    public void loadInConstructor() {
-        //logics
-    }
 }
