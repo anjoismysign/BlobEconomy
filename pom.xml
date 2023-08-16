@@ -68,7 +68,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${testServer}/plugins/${project.artifactId}.jar
+                            <outputFile>${testServer}/plugins/${project.name}-${project.version}.jar
                             </outputFile>
                             <filters>
                                 <filter>
@@ -115,7 +115,7 @@
         <dependency>
             <groupId>us.mytheria</groupId>
             <artifactId>bloblib</artifactId>
-            <version>1.690.4m</version>
+            <version>1.690.4p</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
