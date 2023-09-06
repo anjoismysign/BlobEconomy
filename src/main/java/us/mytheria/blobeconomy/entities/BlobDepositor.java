@@ -2,6 +2,7 @@ package us.mytheria.blobeconomy.entities;
 
 import me.anjoismysign.anjo.entities.Result;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
 import us.mytheria.bloblib.BlobLibAssetAPI;
@@ -20,11 +21,15 @@ public class BlobDepositor implements WalletOwner {
     private final BlobCrudable crudable;
     private final Wallet wallet;
     private final EconomyManagerDirector director;
+    private final String playerName, playerUniqueId;
 
     public BlobDepositor(BlobCrudable crudable, EconomyManagerDirector director) {
         this.crudable = crudable;
         this.director = director;
         wallet = deserializeWallet();
+        Player player = getPlayer();
+        playerName = player.getName();
+        playerUniqueId = player.getUniqueId().toString();
     }
 
     @Override
@@ -34,18 +39,17 @@ public class BlobDepositor implements WalletOwner {
     }
 
     @Override
+    @NotNull
     public String getPlayerName() {
-        Player player = getPlayer();
-        if (player == null || !player.isOnline())
-            throw new IllegalStateException("Player is null");
-        return player.getName();
+        return playerName;
     }
 
     @Override
+    @NotNull
     public String getPlayerUniqueId() {
         Player player = getPlayer();
         if (player == null || !player.isOnline())
-            throw new IllegalStateException("Player is null");
+            throw new NullPointerException("Player is null");
         return player.getUniqueId().toString();
     }
 
