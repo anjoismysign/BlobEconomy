@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
-import us.mytheria.bloblib.BlobLibAssetAPI;
+import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobCrudable;
 import us.mytheria.bloblib.entities.ObjectManager;
 import us.mytheria.bloblib.entities.currency.Currency;
@@ -73,13 +73,15 @@ public class BlobDepositor implements WalletOwner {
         double amount = bigDecimal.doubleValue();
         Player player = getPlayer();
         if (!has(currency, amount)) {
-            BlobLibAssetAPI.getMessage("Withdraw.Insufficient-Balance")
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Withdraw.Insufficient-Balance", player)
                     .handle(player);
             return;
         }
         Currency.TangibleShapeOperation operation = currency.getTangibleShape(amount);
         if (!operation.isValid()) {
-            BlobLibAssetAPI.getMessage("Withdraw.Amount-Too-Small")
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Withdraw.Amount-Too-Small", player)
                     .handle(player);
             return;
         }
@@ -89,7 +91,8 @@ public class BlobDepositor implements WalletOwner {
         }
         withdraw(currency, amount);
         operation.shape().forEach(itemStack -> player.getInventory().addItem(itemStack));
-        BlobLibAssetAPI.getMessage("Withdraw.Successful")
+        BlobLibMessageAPI.getInstance()
+                .getMessage("Withdraw.Successful", player)
                 .modder()
                 .replace("%display%", currency.display(amount))
                 .get()

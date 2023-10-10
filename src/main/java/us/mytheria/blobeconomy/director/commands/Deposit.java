@@ -10,7 +10,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
 import us.mytheria.blobeconomy.entities.BlobDepositor;
-import us.mytheria.bloblib.BlobLibAssetAPI;
+import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobChildCommand;
 import us.mytheria.bloblib.entities.BlobExecutor;
 import us.mytheria.bloblib.entities.ExecutorData;
@@ -34,14 +34,16 @@ public class Deposit {
             String input = args[1];
             Player target = Bukkit.getPlayer(input);
             if (target == null) {
-                BlobLibAssetAPI.getMessage("Player.Not-Found")
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("Player.Not-Found", sender)
                         .toCommandSender(sender);
                 return true;
             }
             player = target;
         } else {
             if (!(sender instanceof Player)) {
-                BlobLibAssetAPI.getMessage("System.Console-Not-Allowed-Command")
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("System.Console-Not-Allowed-Command", sender)
                         .toCommandSender(sender);
                 return true;
             }

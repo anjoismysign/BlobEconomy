@@ -20,7 +20,8 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
         getRealFileManager().unpackYamlFile("/currency", "default");
-        registerMetaBlobInventory("Withdraw");
+        registerBlobMessage("es_es/blobeconomy_lang");
+        registerBlobInventory("Withdraw", "es_es/Withdraw");
         addManager("ConfigManager", new ConfigManager(this));
 //        addManager("ListenerManager", new ListenerManager(this));
         addCurrencyDirector("Currency");

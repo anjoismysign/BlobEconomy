@@ -1,0 +1,28 @@
+Locale: es_es
+BlobEconomy:
+  Withdraw-Usage:
+    Type: CHAT
+    Message: '&cUso: &7/eco withdraw <monto> [moneda]'
+Withdraw:
+  Amount:
+    Type: TITLE
+    Title: '&f&lCANTIDAD'
+    Subtitle: '&7Digita la cantidad'
+  Amount-Timeout:
+    Type: TITLE
+    Title: '&c&lMUY LENTO'
+    Subtitle: '&7Te tomó mucho digitar la cantidad'
+    BlobSound: Builder.Timeout
+  Insufficient-Balance:
+    Type: TITLE
+    Title: '&c&lSIN FONDOS'
+    Subtitle: '&7No tienes suficientes fondos'
+    BlobSound: System.Alert
+  Amount-Too-Small:
+    Type: TITLE
+    Title: '&c&lMUY POCO'
+    Subtitle: '&7La cantidad es muy poca para retirar'
+    BlobSound: System.Alert
+  Successful:
+    Type: CHAT
+    Message: 'Has retirado %display%'

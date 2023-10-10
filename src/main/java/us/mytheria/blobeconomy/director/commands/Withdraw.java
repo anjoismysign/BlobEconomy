@@ -5,7 +5,7 @@ import me.anjoismysign.anjo.entities.Uber;
 import org.bukkit.command.CommandSender;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
 import us.mytheria.blobeconomy.entities.BlobDepositor;
-import us.mytheria.bloblib.BlobLibAssetAPI;
+import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobChildCommand;
 import us.mytheria.bloblib.entities.BlobExecutor;
 import us.mytheria.bloblib.entities.ExecutorData;
@@ -28,7 +28,9 @@ public class Withdraw {
         Uber<Boolean> uber = Uber.drive(false);
         executor.ifInstanceOfPlayer(sender, player -> {
             if (args.length < 2) {
-                sender.sendMessage("Usage: /eco withdraw <amount> [currency]");
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("BlobEconomy.Withdraw-Usage", sender)
+                        .toCommandSender(sender);
                 uber.talk(true);
                 return;
             }
@@ -37,7 +39,9 @@ public class Withdraw {
             try {
                 x = new BigDecimal(input);
             } catch (NumberFormatException e) {
-                sender.sendMessage("Usage: /eco withdraw <amount> [currency]");
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("BlobEconomy.Withdraw-Usage", sender)
+                        .toCommandSender(sender);
                 uber.talk(true);
                 return;
             }
@@ -49,7 +53,8 @@ public class Withdraw {
             Currency currency = director.getCurrencyDirector()
                     .getObjectManager().getObject(currencyKey);
             if (currency == null) {
-                BlobLibAssetAPI.getMessage("Currency.Not-Found")
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("Currency.Not-Found", player)
                         .handle(player);
                 uber.talk(true);
                 return;

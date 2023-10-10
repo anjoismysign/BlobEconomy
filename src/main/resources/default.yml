@@ -1,7 +1,9 @@
 # How it will be displayed in placeholders and such
 Display: '&#d5d5d7%gramsBalance%'
 # How its name will be displayed through messages and UIs
-Display-Name: 'silver'
+Display-Name:
+  en_us: silver
+  es_es: plata
 # Initial balance for new players
 Initial-Balance: 0.0
 # If it should persist (like after player rebirths)

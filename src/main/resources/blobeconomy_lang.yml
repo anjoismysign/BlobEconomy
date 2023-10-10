@@ -1,3 +1,7 @@
+BlobEconomy:
+  Withdraw-Usage:
+    Type: CHAT
+    Message: '&cUsage: &7/eco withdraw <amount> [currency]'
 Withdraw:
   Amount:
     Type: TITLE
