@@ -6,3 +6,9 @@ Database:
   Database: database
   Username: admin
   Password: password
+Settings:
+  #if true, players can trade to other currencies even if they have never acquired them before
+  Free-Trader-Currency-Market: false
+Listeners:
+  ComplexListeners: [ ]
+  TinyListeners: [ ]

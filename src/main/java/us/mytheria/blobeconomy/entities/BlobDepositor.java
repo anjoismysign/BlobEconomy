@@ -3,8 +3,11 @@ package us.mytheria.blobeconomy.entities;
 import me.anjoismysign.anjo.entities.Result;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import us.mytheria.blobeconomy.BlobEconomyAPI;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
+import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
+import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
 import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobCrudable;
 import us.mytheria.bloblib.entities.ObjectManager;
@@ -63,13 +66,36 @@ public class BlobDepositor implements WalletOwner {
         return wallet;
     }
 
+    public void trade(@NotNull BigDecimal bigDecimal,
+                      @NotNull Currency from,
+                      @NotNull Currency to) {
+        Player player = getPlayer();
+        double amount = bigDecimal.doubleValue();
+        Tradeable fromTradeable = BlobEconomyAPI.getInstance().getTradeable(from.getKey());
+        Tradeable toTradeable = BlobEconomyAPI.getInstance().getTradeable(to.getKey());
+        if (fromTradeable == null)
+            throw new NullPointerException("'fromTradeable' cannot be null!");
+        if (toTradeable == null)
+            throw new NullPointerException("'toTradeable' cannot be null!");
+        double total = fromTradeable.trade(toTradeable, amount);
+        withdraw(from, amount);
+        deposit(to, total);
+        BlobLibMessageAPI.getInstance()
+                .getMessage("Withdraw.Successful", player)
+                .modder()
+                .replace("%display%", from.display(amount))
+                .get()
+                .handle(player);
+    }
+
     /**
      * Will withdraw the amount of currency from the wallet.
      *
      * @param bigDecimal the amount to withdraw
      * @param currency   the currency to withdraw
      */
-    public void withdrawTargetCurrency(BigDecimal bigDecimal, Currency currency) {
+    public void withdrawTargetCurrency(@NotNull BigDecimal bigDecimal,
+                                       @NotNull Currency currency) {
         double amount = bigDecimal.doubleValue();
         Player player = getPlayer();
         if (!has(currency, amount)) {
@@ -112,5 +138,17 @@ public class BlobDepositor implements WalletOwner {
                 .filter(Currency::isTangible)
                 .collect(Collectors.toList());
         WithdrawerUI.getInstance().withdraw(getPlayer(), list);
+    }
+
+    public void chooseAndTradeCurrency() {
+        ObjectManager<Currency> objectManager = director.getCurrencyDirector()
+                .getObjectManager();
+        List<Currency> list = getWallet().keySet().stream()
+                .map(objectManager::searchObject)
+                .map(Result::toOptional)
+                .flatMap(Optional::stream)
+                .filter(currency -> BlobEconomyAPI.getInstance().getTradeable(currency.getKey()) != null)
+                .collect(Collectors.toList());
+        TraderUI.getInstance().from(getPlayer(), list);
     }
 }

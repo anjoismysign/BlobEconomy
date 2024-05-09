@@ -42,7 +42,7 @@ public class WithdrawerUI {
     }
 
     public void withdraw(Player player, List<Currency> list) {
-        BlobLibInventoryAPI.getInstance().customSelector("Withdraw",
+        BlobLibInventoryAPI.getInstance().customSelector("Trade",
                 player, "Currencies", "Currency",
                 () -> list,
                 currency -> {
@@ -50,7 +50,7 @@ public class WithdrawerUI {
                     BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
                                 try {
                                     double amount = Double.parseDouble(input);
-                                    BigDecimal x = BigDecimal.valueOf(amount);
+                                    BigDecimal x = new BigDecimal(amount);
                                     BlobDepositor depositor = getDepositor(player);
                                     if (depositor == null)
                                         return;

@@ -1,25 +1,25 @@
 package us.mytheria.blobeconomy.director.manager;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import us.mytheria.blobeconomy.BlobEconomy;
+import org.bukkit.configuration.ConfigurationSection;
 import us.mytheria.blobeconomy.director.EconomyManager;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
+import us.mytheria.bloblib.entities.ConfigDecorator;
 
 public class ConfigManager extends EconomyManager {
-//    private SimpleEventListener<Boolean> listenerExample;
+    private boolean freeTraderCurrencyMarket;
 
     public ConfigManager(EconomyManagerDirector managerDirector) {
         super(managerDirector);
-        BlobEconomy main = managerDirector.getPlugin();
-        FileConfiguration config = main.getConfig();
-        config.options().copyDefaults(true);
-//        ConfigurationSection listeners = config.getConfigurationSection("Listeners");
-//        listenerExample = SimpleEventListener.BOOLEAN(
-//                (listeners.getConfigurationSection("UseUUIDs")), "State");
-        main.saveConfig();
+        reload();
     }
 
-//    public SimpleEventListener<Boolean> useUUIDs() {
-//        return listenerExample;
-//    }
+    public void reload() {
+        ConfigDecorator configDecorator = getPlugin().getConfigDecorator();
+        ConfigurationSection settingsSection = configDecorator.reloadAndGetSection("Settings");
+        freeTraderCurrencyMarket = settingsSection.getBoolean("Free-Trader-Currency-Market");
+    }
+
+    public boolean isFreeTraderCurrencyMarket() {
+        return freeTraderCurrencyMarket;
+    }
 }
