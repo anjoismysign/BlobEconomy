@@ -71,6 +71,12 @@ public class BlobDepositor implements WalletOwner {
                       @NotNull Currency to) {
         Player player = getPlayer();
         double amount = bigDecimal.doubleValue();
+        if (!has(from, amount)) {
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Withdraw.Insufficient-Balance", player)
+                    .handle(player);
+            return;
+        }
         Tradeable fromTradeable = BlobEconomyAPI.getInstance().getTradeable(from.getKey());
         Tradeable toTradeable = BlobEconomyAPI.getInstance().getTradeable(to.getKey());
         if (fromTradeable == null)
