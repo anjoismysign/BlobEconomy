@@ -7,7 +7,7 @@ Buttons:
       CustomModelData: 0
       DisplayName: " "
     Slot: 19-26
-  Close:
+  Return:
     ItemStack:
       Material: BARRIER
       DisplayName: '&6Close'

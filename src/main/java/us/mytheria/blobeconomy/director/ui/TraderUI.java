@@ -89,8 +89,10 @@ public class TraderUI {
                 },
                 player1 -> {
                     BlobDepositor depositor = getDepositor(player1);
-                    if (depositor == null)
+                    if (depositor == null) {
+                        player1.closeInventory();
                         return;
+                    }
                     depositor.trade(false);
                     player1.closeInventory();
                 },
@@ -109,6 +111,7 @@ public class TraderUI {
                 player, "Currencies", "Currency",
                 () -> list,
                 currency -> {
+                    player.closeInventory();
                     BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
                                 try {
                                     double amount = Double.parseDouble(input);
@@ -116,6 +119,7 @@ public class TraderUI {
                                     BlobDepositor depositor = getDepositor(player);
                                     if (depositor == null)
                                         return;
+                                    depositor.trade(false);
                                     depositor.trade(x, from, currency);
                                 } catch (NumberFormatException ignored) {
                                     BlobLibMessageAPI.getInstance().getMessage("Builder.Number-Exception").handle(player);
@@ -137,8 +141,10 @@ public class TraderUI {
                     return clone;
                 }, player1 -> {
                     BlobDepositor depositor = getDepositor(player1);
-                    if (depositor == null)
+                    if (depositor == null) {
+                        player1.closeInventory();
                         return;
+                    }
                     trade(player1);
                 },
                 player1 -> {
