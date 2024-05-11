@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
-import us.mytheria.blobeconomy.entities.BlobDepositor;
+import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobChildCommand;
 import us.mytheria.bloblib.entities.BlobExecutor;
@@ -44,15 +44,7 @@ public class TraderCmd {
             }
             player = (Player) sender;
         }
-        BlobDepositor depositor = director.getDepositorManager()
-                .isWalletOwner(player).orElse(null);
-        if (depositor == null) {
-            BlobLibMessageAPI.getInstance()
-                    .getMessage("Player.Not-Inside-Plugin-Cache", sender)
-                    .toCommandSender(sender);
-            return true;
-        }
-        depositor.chooseAndTradeCurrency();
+        TraderUI.getInstance().trade(player);
         return true;
     }
 

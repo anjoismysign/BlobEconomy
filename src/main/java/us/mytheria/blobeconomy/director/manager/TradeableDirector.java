@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
+import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.blobeconomy.entities.tradeable.DynamicTradeableOperator;
 import us.mytheria.blobeconomy.entities.tradeable.StaticTradeableOperator;
 import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
@@ -18,12 +19,16 @@ import us.mytheria.bloblib.entities.ObjectDirectorData;
 import us.mytheria.bloblib.exception.ConfigurationFieldException;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 public class TradeableDirector extends ObjectDirector<Tradeable> {
+    private final EconomyManagerDirector director;
+
     private BukkitTask task;
     private final Set<UUID> coinboycott;
+    private final Set<UUID> trading;
 
     public TradeableDirector(EconomyManagerDirector managerDirector) {
         super(managerDirector, ObjectDirectorData
@@ -43,7 +48,9 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
                     }
                     return new Tradeable(currency, operator);
                 }, false);
+        director = managerDirector;
         coinboycott = new HashSet<>();
+        trading = new HashSet<>();
     }
 
     private void reloadTask() {
@@ -55,6 +62,12 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
                 getObjectManager().values().stream()
                         .map(Tradeable::operator)
                         .forEach(TradeableOperator::update);
+                trading.forEach(uuid -> {
+                    Player player = Bukkit.getPlayer(uuid);
+                    if (player == null)
+                        trading.remove(uuid);
+                    TraderUI.getInstance().trade(player);
+                });
             }
         }.runTaskTimer(getPlugin(), 0, 600);
     }
@@ -77,5 +90,14 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
     @Override
     public void postWorld() {
         reloadTask();
+    }
+
+    public void trade(@NotNull Player player,
+                      boolean isTrading) {
+        Objects.requireNonNull(player, "'player' cannot be null");
+        if (isTrading)
+            trading.add(player.getUniqueId());
+        else
+            trading.remove(player.getUniqueId());
     }
 }

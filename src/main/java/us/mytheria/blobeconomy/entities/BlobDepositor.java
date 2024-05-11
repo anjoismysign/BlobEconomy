@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomyAPI;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
-import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
 import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
 import us.mytheria.bloblib.api.BlobLibMessageAPI;
@@ -24,7 +23,7 @@ public class BlobDepositor implements WalletOwner {
     private final BlobCrudable crudable;
     private final Wallet wallet;
     private final EconomyManagerDirector director;
-    private final String playerName, playerUniqueId;
+    private final String playerName;
 
     public BlobDepositor(BlobCrudable crudable, EconomyManagerDirector director) {
         this.crudable = crudable;
@@ -32,7 +31,6 @@ public class BlobDepositor implements WalletOwner {
         wallet = deserializeWallet();
         Player player = getPlayer();
         playerName = player.getName();
-        playerUniqueId = player.getUniqueId().toString();
     }
 
     @Override
@@ -146,15 +144,10 @@ public class BlobDepositor implements WalletOwner {
         WithdrawerUI.getInstance().withdraw(getPlayer(), list);
     }
 
-    public void chooseAndTradeCurrency() {
-        ObjectManager<Currency> objectManager = director.getCurrencyDirector()
-                .getObjectManager();
-        List<Currency> list = getWallet().keySet().stream()
-                .map(objectManager::searchObject)
-                .map(Result::toOptional)
-                .flatMap(Optional::stream)
-                .filter(currency -> BlobEconomyAPI.getInstance().getTradeable(currency.getKey()) != null)
-                .collect(Collectors.toList());
-        TraderUI.getInstance().from(getPlayer(), list);
+    public void trade(boolean isTrading) {
+        Player player = getPlayer();
+        if (player == null)
+            return;
+        director.getTradeableDirector().trade(player, isTrading);
     }
 }

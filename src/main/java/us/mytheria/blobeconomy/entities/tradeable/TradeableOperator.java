@@ -1,5 +1,7 @@
 package us.mytheria.blobeconomy.entities.tradeable;
 
+import us.mytheria.bloblib.utilities.TextColor;
+
 import java.text.DecimalFormat;
 
 public interface TradeableOperator {
@@ -13,10 +15,10 @@ public interface TradeableOperator {
 
     default String displayChange() {
         if (!didChange())
-            return "&7(0%)→";
+            return TextColor.PARSE("&7(0%)→");
         if (getChangePercentage() > 0.01)
-            return "&a(" + DECIMAL_FORMAT.format(getChangePercentage()) + "%)↑";
-        return "&c(" + DECIMAL_FORMAT.format(getChangePercentage()) + "%)↓";
+            return TextColor.PARSE("&a(" + DECIMAL_FORMAT.format(getChangePercentage()) + "%)↑");
+        return TextColor.PARSE("&c(" + DECIMAL_FORMAT.format(getChangePercentage()) + "%)↓");
     }
 
     default boolean didChange() {

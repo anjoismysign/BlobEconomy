@@ -56,24 +56,22 @@ public record DynamicTradeableOperator(@NotNull Uber<Double> rate,
 
         double change = changeAmount * tries;
 
+        // Randomly choose between additive and subtractive
         int nxt = new Random().nextInt(2);
         if (nxt == 0) {
-            double end = value + change;
-            rate.talk(Math.min(end, max));
+            // additive
+            double current = Math.min(value + change, max);
+            double previous = rate.thanks();
+            double changePercentage = (current - previous) / previous * 100;
+            this.changePercentage.talk(changePercentage);
+            rate.talk(current);
         } else {
-            double end = value - change;
-            rate.talk(Math.max(end, min));
-        }
-
-        double test = rate.thanks() / value * 100;
-        if (test > 100) {
-            changePercentage.talk(test - 100);
-        }
-        if (test == 100) {
-            changePercentage.talk(0D);
-        }
-        if (test < 100) {
-            changePercentage.talk(100 - test);
+            // subtractive
+            double current = Math.max(value - change, min);
+            double previous = rate.thanks();
+            double changePercentage = (current - previous) / previous * 100;
+            this.changePercentage.talk(changePercentage);
+            rate.talk(current);
         }
     }
 

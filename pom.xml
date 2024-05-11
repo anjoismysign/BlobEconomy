@@ -6,7 +6,7 @@
 
     <groupId>us.mytheria</groupId>
     <artifactId>BlobEconomy</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <packaging>jar</packaging>
 
     <name>BlobEconomy</name>
@@ -115,7 +115,7 @@
         <dependency>
             <groupId>us.mytheria</groupId>
             <artifactId>bloblib</artifactId>
-            <version>1.698.20</version>
+            <version>1.698.21</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
