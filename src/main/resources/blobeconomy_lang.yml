@@ -2,3 +2,11 @@ BlobEconomy:
   Withdraw-Usage:
     Type: CHAT
     Message: '&cUsage: &7/eco withdraw <amount> [currency]'
+  Currency-Boycott:
+    Type: TITLE
+    Title: '&e&lBOYCOTT!'
+    Subtitle: '&7Currencies were manipulated'
+  Currency-Boycott-Cooldown:
+    Type: TITLE
+    Title: '&c&lSLOW DOWN!'
+    Subtitle: '&7You can only boycott every once in a while'

@@ -47,7 +47,7 @@ public record DynamicTradeableOperator(@NotNull Uber<Double> rate,
     }
 
     @Override
-    public void update() {
+    public void naturalUpdate() {
         Currency currency = BlobEconomyAPI.getInstance().getCurrency(this.currency);
         if (currency == null)
             return;
@@ -73,6 +73,11 @@ public record DynamicTradeableOperator(@NotNull Uber<Double> rate,
             this.changePercentage.talk(changePercentage);
             rate.talk(current);
         }
+    }
+
+    @Override
+    public void aggressiveUpdate() {
+        this.rate.talk((ThreadLocalRandom.current().nextDouble() * (max - min)) + min);
     }
 
     @Override

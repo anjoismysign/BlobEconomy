@@ -3,7 +3,11 @@ package us.mytheria.blobeconomy.entities.tradeable;
 public record StaticTradeableOperator(double getRate)
         implements TradeableOperator {
     @Override
-    public void update() {
+    public void naturalUpdate() {
+    }
+
+    @Override
+    public void aggressiveUpdate() {
     }
 
     @Override

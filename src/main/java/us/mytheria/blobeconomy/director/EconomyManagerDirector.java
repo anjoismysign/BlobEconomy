@@ -2,10 +2,7 @@ package us.mytheria.blobeconomy.director;
 
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomy;
-import us.mytheria.blobeconomy.director.commands.Deposit;
-import us.mytheria.blobeconomy.director.commands.TraderCmd;
-import us.mytheria.blobeconomy.director.commands.Withdraw;
-import us.mytheria.blobeconomy.director.commands.WithdrawerCmd;
+import us.mytheria.blobeconomy.director.commands.*;
 import us.mytheria.blobeconomy.director.manager.ConfigManager;
 import us.mytheria.blobeconomy.director.manager.TradeableDirector;
 import us.mytheria.blobeconomy.director.ui.TraderUI;
@@ -35,10 +32,12 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         getCurrencyDirector().addNonAdminChildTabCompleter(executorData -> Withdraw.tabCompleter(executorData, this));
         getCurrencyDirector().addNonAdminChildCommand(executorData -> Deposit.command(executorData, this));
         getCurrencyDirector().addNonAdminChildTabCompleter(Deposit::tabCompleter);
-        getCurrencyDirector().addNonAdminChildTabCompleter(executorData -> WithdrawerCmd.tabCompleter(executorData, this));
         getCurrencyDirector().addNonAdminChildCommand(executorData -> WithdrawerCmd.command(executorData, this));
-        getCurrencyDirector().addNonAdminChildTabCompleter(executorData -> TraderCmd.tabCompleter(executorData, this));
+        getCurrencyDirector().addNonAdminChildTabCompleter(WithdrawerCmd::tabCompleter);
+        getCurrencyDirector().addAdminChildCommand(executorData -> BoycottCmd.command(executorData, this));
+        getCurrencyDirector().addAdminChildTabCompleter(BoycottCmd::tabCompleter);
         getCurrencyDirector().addNonAdminChildCommand(executorData -> TraderCmd.command(executorData, this));
+        getCurrencyDirector().addNonAdminChildTabCompleter(TraderCmd::tabCompleter);
         addWalletOwnerManager("DepositorManager",
                 x -> x, crudable ->
                         new BlobDepositor(crudable, this),

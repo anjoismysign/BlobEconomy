@@ -26,6 +26,12 @@ public class WithdrawerCmd {
             return false;
         Player player;
         if (args.length >= 2) {
+            if (!sender.hasPermission("blobeconomy.admin")) {
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("System.No-Permission", sender)
+                        .toCommandSender(sender);
+                return true;
+            }
             String input = args[1];
             Player target = Bukkit.getPlayer(input);
             if (target == null) {
@@ -56,7 +62,7 @@ public class WithdrawerCmd {
         return true;
     }
 
-    public static List<String> tabCompleter(ExecutorData data, EconomyManagerDirector director) {
+    public static List<String> tabCompleter(ExecutorData data) {
         String[] args = data.args();
         List<String> suggestions = new ArrayList<>();
         if (args.length == 1) {

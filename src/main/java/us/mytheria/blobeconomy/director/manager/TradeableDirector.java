@@ -14,6 +14,7 @@ import us.mytheria.blobeconomy.entities.tradeable.DynamicTradeableOperator;
 import us.mytheria.blobeconomy.entities.tradeable.StaticTradeableOperator;
 import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
 import us.mytheria.blobeconomy.entities.tradeable.TradeableOperator;
+import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.ObjectDirector;
 import us.mytheria.bloblib.entities.ObjectDirectorData;
 import us.mytheria.bloblib.exception.ConfigurationFieldException;
@@ -61,7 +62,7 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
             public void run() {
                 getObjectManager().values().stream()
                         .map(Tradeable::operator)
-                        .forEach(TradeableOperator::update);
+                        .forEach(TradeableOperator::naturalUpdate);
                 trading.forEach(uuid -> {
                     Player player = Bukkit.getPlayer(uuid);
                     if (player == null)
@@ -70,6 +71,12 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
                 });
             }
         }.runTaskTimer(getPlugin(), 0, 600);
+    }
+
+    private void aggressiveUpdate() {
+        getObjectManager().values().stream()
+                .map(Tradeable::operator)
+                .forEach(TradeableOperator::aggressiveUpdate);
     }
 
     /**
@@ -81,9 +88,20 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
     public void boycott(@NotNull Player player,
                         int seconds) {
         UUID uuid = player.getUniqueId();
-        if (coinboycott.contains(uuid))
+        if (coinboycott.contains(uuid)) {
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("BlobEconomy.Currency-Boycott-Cooldown", player)
+                    .handle(player);
             return;
+        }
         coinboycott.add(uuid);
+        reloadTask();
+        aggressiveUpdate();
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("BlobEconomy.Currency-Boycott", onlinePlayer)
+                    .handle(onlinePlayer);
+        });
         Bukkit.getScheduler().runTaskLater(getPlugin(), () -> coinboycott.remove(uuid), seconds * 20L);
     }
 

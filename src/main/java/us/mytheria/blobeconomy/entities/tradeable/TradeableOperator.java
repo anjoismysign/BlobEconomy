@@ -9,7 +9,15 @@ public interface TradeableOperator {
 
     double getRate();
 
-    void update();
+    /**
+     * Updates the rate of the tradeable in a more natural/incremental way.
+     */
+    void naturalUpdate();
+
+    /**
+     * Updates the rate of the tradeable in a more random/aggressive way.
+     */
+    void aggressiveUpdate();
 
     double getChangePercentage();
 

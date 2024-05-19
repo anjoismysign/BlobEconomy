@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
-import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobChildCommand;
 import us.mytheria.bloblib.entities.BlobExecutor;
@@ -14,24 +13,19 @@ import us.mytheria.bloblib.entities.ExecutorData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TraderCmd {
+public class BoycottCmd {
 
     public static boolean command(ExecutorData data, EconomyManagerDirector director) {
         String[] args = data.args();
         BlobExecutor executor = data.executor();
         CommandSender sender = data.sender();
         Result<BlobChildCommand> result = executor
-                .isChildCommand("trader", args);
+                .isChildCommand("boycott", args);
         if (!result.isValid())
             return false;
         Player player;
+        int seconds = 600;
         if (args.length >= 2) {
-            if (!sender.hasPermission("blobeconomy.admin")) {
-                BlobLibMessageAPI.getInstance()
-                        .getMessage("System.No-Permission", sender)
-                        .toCommandSender(sender);
-                return true;
-            }
             String input = args[1];
             Player target = Bukkit.getPlayer(input);
             if (target == null) {
@@ -41,6 +35,16 @@ public class TraderCmd {
                 return true;
             }
             player = target;
+            if (args.length >= 3) {
+                try {
+                    seconds = Integer.parseInt(args[2]);
+                } catch (NumberFormatException e) {
+                    BlobLibMessageAPI.getInstance()
+                            .getMessage("Economy.Number-Exception", sender)
+                            .toCommandSender(sender);
+                    return true;
+                }
+            }
         } else {
             if (!(sender instanceof Player)) {
                 BlobLibMessageAPI.getInstance()
@@ -50,7 +54,7 @@ public class TraderCmd {
             }
             player = (Player) sender;
         }
-        TraderUI.getInstance().trade(player);
+        director.getTradeableDirector().boycott(player, seconds);
         return true;
     }
 
@@ -58,7 +62,7 @@ public class TraderCmd {
         String[] args = data.args();
         List<String> suggestions = new ArrayList<>();
         if (args.length == 1) {
-            suggestions.add("trader");
+            suggestions.add("boycott");
         }
         if (args.length == 2) {
             suggestions.addAll(Bukkit.getOnlinePlayers().stream()
