@@ -2,8 +2,12 @@ Locale: es_es
 BlobEconomy:
   Withdraw-Usage:
     Type: CHAT
-    Message: '&cUso: &7/eco withdraw <monto> [moneda]'
+    Message: '&cUso: &7/eco withdraw <amount> [currency]'
   Currency-Boycott:
     Type: TITLE
     Title: '&e&lBOICÓT!'
     Subtitle: '&7Las monedas fueron manipuladas'
+  Currency-Boycott-Cooldown:
+    Type: TITLE
+    Title: '&c&l¡CALMA!'
+    Subtitle: '&7Debes esperar un poco'
