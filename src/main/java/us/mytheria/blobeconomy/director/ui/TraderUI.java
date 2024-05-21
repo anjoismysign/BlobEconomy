@@ -122,7 +122,9 @@ public class TraderUI {
                                     depositor.trade(false);
                                     depositor.trade(x, from, currency);
                                 } catch (NumberFormatException ignored) {
-                                    BlobLibMessageAPI.getInstance().getMessage("Builder.Number-Exception").handle(player);
+                                    BlobLibMessageAPI.getInstance()
+                                            .getMessage("Builder.Number-Exception", player)
+                                            .handle(player);
                                 }
                             }, "Withdraw.Amount-Timeout",
                             "Withdraw.Amount");
