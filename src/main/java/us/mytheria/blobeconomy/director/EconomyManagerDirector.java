@@ -1,5 +1,6 @@
 package us.mytheria.blobeconomy.director;
 
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomy;
 import us.mytheria.blobeconomy.director.commands.*;
@@ -46,12 +47,21 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 DepositorLoadEvent::new,
                 DepositorUnloadEvent::new);
         getCurrencyDirector().whenObjectManagerFilesLoad(manager -> {
-            withdrawerUI = WithdrawerUI.getInstance(this);
-            traderUI = TraderUI.getInstance(this);
-            getDepositorManager().registerEconomy(manager.getObject("default"),
-                    getCurrencyDirector());
-            getDepositorManager().registerDefaultEconomyCommand(getCurrencyDirector());
-            getDepositorManager().registerPlaceholderAPIExpansion();
+            try {
+                withdrawerUI = WithdrawerUI.getInstance(this);
+                traderUI = TraderUI.getInstance(this);
+                Bukkit.getScheduler().runTask(getPlugin(), () -> {
+                    getDepositorManager().registerEconomy(manager.getObject("default"),
+                            getCurrencyDirector());
+                    getDepositorManager().registerDefaultEconomyCommand(getCurrencyDirector());
+                    Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> {
+                        getDepositorManager().registerPlaceholderAPIExpansion();
+                    }, 20L);
+
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
