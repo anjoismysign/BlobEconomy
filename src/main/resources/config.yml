@@ -9,6 +9,15 @@ Database:
 Settings:
   #if true, players can trade to other currencies even if they have never acquired them before
   Free-Trader-Currency-Market: false
+  #even when free trader currency market is disabled, players can always trade these currencies
+  Always-Tradable-Currencies:
+    - default
+  #if player types one of the following keywords, it will withdraw all of their money
+  Withdraw-All-Keywords:
+    - all
+  #if player types one of the following keywords, it will withdraw half of their money
+  Withdraw-Half-Keywords:
+    - half
 Listeners:
   ComplexListeners: [ ]
   TinyListeners: [ ]

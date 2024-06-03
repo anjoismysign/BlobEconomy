@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WithdrawerUI {
     private static WithdrawerUI instance;
@@ -48,17 +49,29 @@ public class WithdrawerUI {
                 currency -> {
                     player.closeInventory();
                     BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
+                                BlobDepositor depositor = getDepositor(player);
+                                if (depositor == null)
+                                    return;
                                 try {
                                     double amount = Double.parseDouble(input);
-                                    BigDecimal x = new BigDecimal(amount);
-                                    BlobDepositor depositor = getDepositor(player);
-                                    if (depositor == null)
-                                        return;
-                                    depositor.withdrawTargetCurrency(x, currency);
+                                    BigDecimal bigDecimal = new BigDecimal(amount);
+                                    depositor.withdrawTargetCurrency(bigDecimal, currency);
                                 } catch (NumberFormatException ignored) {
-                                    BlobLibMessageAPI.getInstance()
-                                            .getMessage("Builder.Number-Exception", player)
-                                            .handle(player);
+                                    Set<String> allKeywords = director.getConfigManager().getWithdrawAllKeywords();
+                                    Set<String> halfKeywords = director.getConfigManager().getWithdrawHalfKeywords();
+                                    if (allKeywords.contains(input)) {
+                                        double amount = depositor.getBalance(currency.getKey());
+                                        BigDecimal bigDecimal = new BigDecimal(amount);
+                                        depositor.withdrawTargetCurrency(bigDecimal, currency);
+                                    } else if (halfKeywords.contains(input)) {
+                                        double amount = depositor.getBalance(currency.getKey()) / 2;
+                                        BigDecimal bigDecimal = new BigDecimal(amount);
+                                        depositor.withdrawTargetCurrency(bigDecimal, currency);
+                                    } else {
+                                        BlobLibMessageAPI.getInstance()
+                                                .getMessage("Builder.Number-Exception", player)
+                                                .handle(player);
+                                    }
                                 }
                             }, "Withdraw.Amount-Timeout",
                             "Withdraw.Amount");

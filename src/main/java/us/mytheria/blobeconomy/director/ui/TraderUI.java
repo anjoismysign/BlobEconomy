@@ -19,8 +19,10 @@ import us.mytheria.bloblib.entities.translatable.TranslatableItem;
 import us.mytheria.bloblib.itemstack.ItemStackModder;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TraderUI {
@@ -65,14 +67,23 @@ public class TraderUI {
                 () -> list,
                 currency -> {
                     trade(player);
-                    List<Currency> currencies;
+                    Set<Currency> currencies;
                     if (BlobEconomyAPI.getInstance().isFreeTraderCurrencyMarket())
-                        currencies = BlobEconomyAPI.getInstance().getTradeableCurrencies();
-                    else
+                        currencies = new HashSet<>(BlobEconomyAPI.getInstance().getTradeableCurrencies());
+                    else {
                         currencies = list.stream()
                                 .filter(c -> !c.equals(currency))
-                                .toList();
-                    to(player, currencies, currency);
+                                .collect(Collectors.toSet());
+                        director.getConfigManager().getAlwaysTradableCurrencies()
+                                .forEach(key -> {
+                                    Currency found = objectManager.getObject(key);
+                                    if (found == null)
+                                        return;
+                                    currencies.add(found);
+                                });
+
+                    }
+                    to(player, currencies.stream().toList(), currency);
                 },
                 currency -> {
                     Tradeable tradeable = BlobEconomyAPI.getInstance().getTradeable(currency.getKey());
@@ -113,18 +124,32 @@ public class TraderUI {
                 currency -> {
                     player.closeInventory();
                     BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
+                                BlobDepositor depositor = getDepositor(player);
+                                if (depositor == null)
+                                    return;
                                 try {
                                     double amount = Double.parseDouble(input);
-                                    BigDecimal x = new BigDecimal(amount);
-                                    BlobDepositor depositor = getDepositor(player);
-                                    if (depositor == null)
-                                        return;
+                                    BigDecimal bigDecimal = new BigDecimal(amount);
                                     depositor.trade(false);
-                                    depositor.trade(x, from, currency);
+                                    depositor.trade(bigDecimal, from, currency);
                                 } catch (NumberFormatException ignored) {
-                                    BlobLibMessageAPI.getInstance()
-                                            .getMessage("Builder.Number-Exception", player)
-                                            .handle(player);
+                                    Set<String> allKeywords = director.getConfigManager().getWithdrawAllKeywords();
+                                    Set<String> halfKeywords = director.getConfigManager().getWithdrawHalfKeywords();
+                                    if (allKeywords.contains(input)) {
+                                        double amount = depositor.getBalance(from.getKey());
+                                        BigDecimal bigDecimal = new BigDecimal(amount);
+                                        depositor.trade(false);
+                                        depositor.trade(bigDecimal, from, currency);
+                                    } else if (halfKeywords.contains(input)) {
+                                        double amount = depositor.getBalance(from.getKey()) / 2;
+                                        BigDecimal bigDecimal = new BigDecimal(amount);
+                                        depositor.trade(false);
+                                        depositor.trade(bigDecimal, from, currency);
+                                    } else {
+                                        BlobLibMessageAPI.getInstance()
+                                                .getMessage("Builder.Number-Exception", player)
+                                                .handle(player);
+                                    }
                                 }
                             }, "Withdraw.Amount-Timeout",
                             "Withdraw.Amount");
