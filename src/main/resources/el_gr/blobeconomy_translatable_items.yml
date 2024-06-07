@@ -1,0 +1,21 @@
+Locale: el_gr
+BlobEconomy:
+  Tradeable-From:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%currency%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7Κάντε κλικ για ανταλλαγή'
+  Tradeable-To:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%currency%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7Ανταλλάσσοντας &f%from%'
+      - '&7με &f%currency%'

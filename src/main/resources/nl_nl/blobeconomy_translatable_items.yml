@@ -1,0 +1,21 @@
+Locale: nl_nl
+BlobEconomy:
+  Tradeable-From:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%currency%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7Klik om te ruilen'
+  Tradeable-To:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%currency%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7Ruilen van &f%from%'
+      - '&7naar &f%currency%'

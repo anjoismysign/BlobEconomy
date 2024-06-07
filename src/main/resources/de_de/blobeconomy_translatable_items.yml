@@ -1,0 +1,21 @@
+Locale: de_de
+BlobEconomy:
+  Tradeable-From:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%currency%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7Klicken, um zu handeln'
+  Tradeable-To:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%currency%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7Handel: &f%from%'
+      - '&7zu &f%currency%'

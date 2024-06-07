@@ -1,0 +1,13 @@
+Locale: nl_nl
+BlobEconomy:
+  Withdraw-Usage:
+    Type: CHAT
+    Message: '&cGebruik: &7/eco withdraw <bedrag> [valuta]'
+  Currency-Boycott:
+    Type: TITLE
+    Title: '&e&lBOYCOT!'
+    Subtitle: '&7De munten zijn gemanipuleerd'
+  Currency-Boycott-Cooldown:
+    Type: TITLE
+    Title: '&c&lRUSTIG!'
+    Subtitle: '&7Je moet even wachten'

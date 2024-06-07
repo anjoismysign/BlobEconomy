@@ -1,0 +1,13 @@
+Locale: ru_ru
+BlobEconomy:
+  Withdraw-Usage:
+    Type: CHAT
+    Message: '&cИспользование: &7/eco withdraw <сумма> [валюта]'
+  Currency-Boycott:
+    Type: TITLE
+    Title: '&e&lБОЙКОТ!'
+    Subtitle: '&7Монеты были манипулированы'
+  Currency-Boycott-Cooldown:
+    Type: TITLE
+    Title: '&c&lУСПОКОЙСЯ!'
+    Subtitle: '&7Ты должен подождать немного'

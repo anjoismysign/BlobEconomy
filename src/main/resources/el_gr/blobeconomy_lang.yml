@@ -1,0 +1,13 @@
+Locale: el_gr
+BlobEconomy:
+  Withdraw-Usage:
+    Type: CHAT
+    Message: '&cΧρήση: &7/eco withdraw <ποσό> [νόμισμα]'
+  Currency-Boycott:
+    Type: TITLE
+    Title: '&e&lΕΜΠΟΙΗΣΗ!'
+    Subtitle: '&7Τα νομίσματα έχουν υποστεί επεξεργασία'
+  Currency-Boycott-Cooldown:
+    Type: TITLE
+    Title: '&c&lΗΡΕΜΗΣΕ!'
+    Subtitle: '&7Πρέπει να περιμένεις λίγο'

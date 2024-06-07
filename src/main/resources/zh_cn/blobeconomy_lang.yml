@@ -1,0 +1,13 @@
+Locale: zh_cn
+BlobEconomy:
+  Withdraw-Usage:
+    Type: CHAT
+    Message: '&c用法：&7/eco withdraw <金额> [货币]'
+  Currency-Boycott:
+    Type: TITLE
+    Title: '&e&l抵制货币!'
+    Subtitle: '&7货币已被操控'
+  Currency-Boycott-Cooldown:
+    Type: TITLE
+    Title: '&c&l冷静!'
+    Subtitle: '&7你需要稍等一下'

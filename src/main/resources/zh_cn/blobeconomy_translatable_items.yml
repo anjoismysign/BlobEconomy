@@ -1,0 +1,20 @@
+Locale: zh_cn
+BlobEconomy:
+  Tradeable-From:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%货币%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7点击进行交易'
+  Tradeable-To:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&f%货币%'
+      Lore:
+      - '&7%currentRate%'
+      - '%change%'
+      - ' '
+      - '&7以 &f%from%&7 与 &f%货币%&7 进行交换'

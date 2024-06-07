@@ -1,0 +1,20 @@
+Locale: ru_ru
+Title: Выводить
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 19-26
+  Return:
+    ItemStack: BlobLib.Return
+    Slot: 18
+  Next-Page:
+    ItemStack: BlobLib.Next-Page
+    Slot: 23
+  Previous-Page:
+    ItemStack: BlobLib.Previous-Page
+    Slot: 22
+  Currencies:
+    ItemStack:
+      Material: AIR
+    Slot: 0-17
