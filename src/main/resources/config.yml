@@ -7,6 +7,8 @@ Database:
   Username: admin
   Password: password
 Settings:
+  #if true, it won’t store nor retrieve users from database
+  Transient-Users: false
   #if true, players can trade to other currencies even if they have never acquired them before
   Free-Trader-Currency-Market: false
   #even when free trader currency market is disabled, players can always trade these currencies

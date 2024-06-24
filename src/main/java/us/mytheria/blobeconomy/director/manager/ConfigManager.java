@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class ConfigManager extends EconomyManager {
     private boolean freeTraderCurrencyMarket;
+    private boolean transientUsers;
     private Set<String> alwaysTradableCurrencies;
     private Set<String> withdrawAllKeywords;
     private Set<String> withdrawHalfKeywords;
@@ -23,6 +24,7 @@ public class ConfigManager extends EconomyManager {
         ConfigDecorator configDecorator = getPlugin().getConfigDecorator();
         ConfigurationSection settingsSection = configDecorator.reloadAndGetSection("Settings");
         freeTraderCurrencyMarket = settingsSection.getBoolean("Free-Trader-Currency-Market");
+        transientUsers = settingsSection.getBoolean("Transient-Users");
         alwaysTradableCurrencies = settingsSection.getStringList("Always-Tradable-Currencies")
                 .stream().map(String::toLowerCase).collect(Collectors.toSet());
         withdrawAllKeywords = settingsSection.getStringList("Withdraw-All-Keywords")
@@ -33,6 +35,10 @@ public class ConfigManager extends EconomyManager {
 
     public boolean isFreeTraderCurrencyMarket() {
         return freeTraderCurrencyMarket;
+    }
+
+    public boolean isTransientUsers() {
+        return transientUsers;
     }
 
     public Set<String> getAlwaysTradableCurrencies() {

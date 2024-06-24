@@ -1,6 +1,7 @@
 package us.mytheria.blobeconomy.director;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomy;
 import us.mytheria.blobeconomy.director.commands.*;
@@ -73,13 +74,25 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         getCurrencyDirector().addAdminChildTabCompleter(BoycottCmd::tabCompleter);
         getCurrencyDirector().addNonAdminChildCommand(executorData -> TraderCmd.command(executorData, this));
         getCurrencyDirector().addNonAdminChildTabCompleter(TraderCmd::tabCompleter);
-        addWalletOwnerManager("DepositorManager",
-                x -> x, crudable ->
-                        new BlobDepositor(crudable, this),
-                "BlobDepositor",
-                true,
-                DepositorLoadEvent::new,
-                DepositorUnloadEvent::new);
+        boolean transientUsers = getConfigManager().isTransientUsers();
+        if (transientUsers)
+            addTransientWalletOwnerManager("DepositorManager",
+                    x -> x, crudable ->
+                            new BlobDepositor(crudable, this),
+                    "BlobDepositor",
+                    true,
+                    DepositorLoadEvent::new,
+                    DepositorUnloadEvent::new,
+                    EventPriority.NORMAL,
+                    EventPriority.NORMAL);
+        else
+            addWalletOwnerManager("DepositorManager",
+                    x -> x, crudable ->
+                            new BlobDepositor(crudable, this),
+                    "BlobDepositor",
+                    true,
+                    DepositorLoadEvent::new,
+                    DepositorUnloadEvent::new);
         getCurrencyDirector().whenObjectManagerFilesLoad(manager -> {
             try {
                 withdrawerUI = WithdrawerUI.getInstance(this);
