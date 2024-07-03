@@ -7,6 +7,10 @@ Database:
   Username: admin
   Password: password
 Settings:
+  Locked-Trading:
+    Enabled: false
+    Allowed-Currencies:
+      - default
   #if true, it won’t store nor retrieve users from database
   Transient-Users: false
   #if true, players can trade to other currencies even if they have never acquired them before

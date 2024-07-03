@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import us.mytheria.blobeconomy.BlobEconomyAPI;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
 import us.mytheria.blobeconomy.entities.BlobDepositor;
+import us.mytheria.blobeconomy.entities.LockedTrading;
 import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
 import us.mytheria.blobeconomy.entities.tradeable.TradeableOperator;
 import us.mytheria.bloblib.api.BlobLibInventoryAPI;
@@ -53,11 +54,19 @@ public class TraderUI {
             return;
         ObjectManager<Currency> objectManager = director.getCurrencyDirector()
                 .getObjectManager();
+        LockedTrading lockedTrading = director.getConfigManager().getLockedTrading();
+        boolean isLocked = lockedTrading.isEnabled();
+        Set<String> allowedCurrencies = lockedTrading.getAllowedCurrencies();
         List<Currency> list = blobDepositor.getWallet().keySet().stream()
                 .map(objectManager::searchObject)
                 .map(Result::toOptional)
                 .flatMap(Optional::stream)
                 .filter(currency -> BlobEconomyAPI.getInstance().getTradeable(currency.getKey()) != null)
+                .filter(currency -> {
+                    if (!isLocked || allowedCurrencies.size() != 1)
+                        return true;
+                    return !allowedCurrencies.contains(currency.getKey());
+                })
                 .collect(Collectors.toList());
         Bukkit.getScheduler().runTask(director.getPlugin(), () -> {
             blobDepositor.trade(true);
@@ -74,14 +83,20 @@ public class TraderUI {
                         currencies = list.stream()
                                 .filter(c -> !c.equals(currency))
                                 .collect(Collectors.toSet());
+                        Set<Currency> finalCurrencies = currencies;
                         director.getConfigManager().getAlwaysTradableCurrencies()
                                 .forEach(key -> {
                                     Currency found = objectManager.getObject(key);
                                     if (found == null)
                                         return;
-                                    currencies.add(found);
+                                    finalCurrencies.add(found);
                                 });
 
+                    }
+                    if (isLocked) {
+                        currencies = currencies.stream()
+                                .filter(c -> allowedCurrencies.contains(c.getKey()))
+                                .collect(Collectors.toSet());
                     }
                     to(player, currencies.stream().toList(), currency);
                 },

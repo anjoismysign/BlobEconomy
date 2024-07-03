@@ -3,6 +3,7 @@ package us.mytheria.blobeconomy.director.manager;
 import org.bukkit.configuration.ConfigurationSection;
 import us.mytheria.blobeconomy.director.EconomyManager;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
+import us.mytheria.blobeconomy.entities.LockedTrading;
 import us.mytheria.bloblib.entities.ConfigDecorator;
 
 import java.util.Set;
@@ -14,6 +15,7 @@ public class ConfigManager extends EconomyManager {
     private Set<String> alwaysTradableCurrencies;
     private Set<String> withdrawAllKeywords;
     private Set<String> withdrawHalfKeywords;
+    private LockedTrading lockedTrading;
 
     public ConfigManager(EconomyManagerDirector managerDirector) {
         super(managerDirector);
@@ -23,6 +25,7 @@ public class ConfigManager extends EconomyManager {
     public void reload() {
         ConfigDecorator configDecorator = getPlugin().getConfigDecorator();
         ConfigurationSection settingsSection = configDecorator.reloadAndGetSection("Settings");
+        lockedTrading = LockedTrading.of(settingsSection.getConfigurationSection("Locked-Trading"));
         freeTraderCurrencyMarket = settingsSection.getBoolean("Free-Trader-Currency-Market");
         transientUsers = settingsSection.getBoolean("Transient-Users");
         alwaysTradableCurrencies = settingsSection.getStringList("Always-Tradable-Currencies")
@@ -39,6 +42,10 @@ public class ConfigManager extends EconomyManager {
 
     public boolean isTransientUsers() {
         return transientUsers;
+    }
+
+    public LockedTrading getLockedTrading() {
+        return lockedTrading;
     }
 
     public Set<String> getAlwaysTradableCurrencies() {
