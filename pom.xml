@@ -6,13 +6,13 @@
 
     <groupId>us.mytheria</groupId>
     <artifactId>BlobEconomy</artifactId>
-    <version>1.0.13</version>
+    <version>1.0.14</version>
     <packaging>jar</packaging>
 
     <name>BlobEconomy</name>
 
     <properties>
-        <testServer>/Users/lbenav8095/Documents/Dev/Java/anjoismysign/BlobLumber</testServer>
+        <testServer>/Users/lbenav8095/Documents/Dev/Java/anjoismysign/1.19 Test Server</testServer>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -95,6 +95,12 @@
             <groupId>us.mytheria</groupId>
             <artifactId>bloblib</artifactId>
             <version>1.698.26</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.anjoismysign.blobtycoon</groupId>
+            <artifactId>blobtycoon</artifactId>
+            <version>2.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

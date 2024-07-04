@@ -1,0 +1,38 @@
+Locale: de_de
+Title: '&lWÄHRUNGSHANDEL > BETRAG'
+Size: 27
+Buttons:
+  Background:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  All:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6Alles auf dem Konto'
+      Lore:
+      - '&7Aktueller Kontostand: %balance%'
+      - '&7Zu behebender Betrag: %amount%'
+    Slot: 10
+  Half:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6Hälfte des Kontos'
+      Lore:
+      - '&7Aktueller Kontostand: %balance%'
+      - '&7Zu behebender Betrag: %amount%'
+    Slot: 12
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&620% handeln'
+      Lore:
+      - '&7Aktueller Kontostand: %balance%'
+      - '&7Zu behebender Betrag: %amount%'
+    Slot: 14
+  Custom:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&6Bestimmter Betrag'
+      Lore:
+      - '&7Klicken Sie, um den Betrag einzugeben'
+    Slot: 16

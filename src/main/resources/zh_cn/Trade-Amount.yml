@@ -1,0 +1,38 @@
+Locale: zh_cn
+Title: '&l货币交易 > 金额'
+Size: 27
+Buttons:
+  Background:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  All:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6账户中的所有金额'
+      Lore:
+      - '&7当前余额: %balance%'
+      - '&7提取金额: %amount%'
+    Slot: 10
+  Half:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6账户中的一半'
+      Lore:
+      - '&7当前余额: %balance%'
+      - '&7提取金额: %amount%'
+    Slot: 12
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6交易 20%'
+      Lore:
+      - '&7当前余额: %balance%'
+      - '&7提取金额: %amount%'
+    Slot: 14
+  Custom:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&6指定金额'
+      Lore:
+      - '&7点击输入金额'
+    Slot: 16

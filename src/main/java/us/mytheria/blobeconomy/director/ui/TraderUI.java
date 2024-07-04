@@ -1,9 +1,11 @@
 package us.mytheria.blobeconomy.director.ui;
 
 import me.anjoismysign.anjo.entities.Result;
+import me.anjoismysign.anjo.entities.Tuple3;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import us.mytheria.blobeconomy.BlobEconomyAPI;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
@@ -11,24 +13,24 @@ import us.mytheria.blobeconomy.entities.BlobDepositor;
 import us.mytheria.blobeconomy.entities.LockedTrading;
 import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
 import us.mytheria.blobeconomy.entities.tradeable.TradeableOperator;
+import us.mytheria.blobeconomy.events.DepositorPreTradeEvent;
 import us.mytheria.bloblib.api.BlobLibInventoryAPI;
 import us.mytheria.bloblib.api.BlobLibListenerAPI;
 import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.ObjectManager;
 import us.mytheria.bloblib.entities.currency.Currency;
+import us.mytheria.bloblib.entities.inventory.BlobInventory;
 import us.mytheria.bloblib.entities.translatable.TranslatableItem;
 import us.mytheria.bloblib.itemstack.ItemStackModder;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TraderUI {
     private static TraderUI instance;
     private final EconomyManagerDirector director;
+    private final Map<UUID, Tuple3<Currency, Currency, Double>> trading;
 
     public static TraderUI getInstance(EconomyManagerDirector director) {
         if (instance == null) {
@@ -46,6 +48,7 @@ public class TraderUI {
     private TraderUI(EconomyManagerDirector director) {
         instance = this;
         this.director = director;
+        this.trading = new HashMap<>();
     }
 
     public void trade(Player player) {
@@ -136,38 +139,30 @@ public class TraderUI {
         BlobLibInventoryAPI.getInstance().customSelector("Trade",
                 player, "Currencies", "Currency",
                 () -> list,
-                currency -> {
-                    player.closeInventory();
-                    BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
-                                BlobDepositor depositor = getDepositor(player);
-                                if (depositor == null)
-                                    return;
-                                try {
-                                    double amount = Double.parseDouble(input);
-                                    BigDecimal bigDecimal = new BigDecimal(amount);
-                                    depositor.trade(false);
-                                    depositor.trade(bigDecimal, from, currency);
-                                } catch (NumberFormatException ignored) {
-                                    Set<String> allKeywords = director.getConfigManager().getWithdrawAllKeywords();
-                                    Set<String> halfKeywords = director.getConfigManager().getWithdrawHalfKeywords();
-                                    if (allKeywords.contains(input)) {
-                                        double amount = depositor.getBalance(from.getKey());
-                                        BigDecimal bigDecimal = new BigDecimal(amount);
-                                        depositor.trade(false);
-                                        depositor.trade(bigDecimal, from, currency);
-                                    } else if (halfKeywords.contains(input)) {
-                                        double amount = depositor.getBalance(from.getKey()) / 2;
-                                        BigDecimal bigDecimal = new BigDecimal(amount);
-                                        depositor.trade(false);
-                                        depositor.trade(bigDecimal, from, currency);
-                                    } else {
-                                        BlobLibMessageAPI.getInstance()
-                                                .getMessage("Builder.Number-Exception", player)
-                                                .handle(player);
-                                    }
-                                }
-                            }, "Withdraw.Amount-Timeout",
-                            "Withdraw.Amount");
+                to -> {
+                    BlobInventory blobInventory = BlobLibInventoryAPI.getInstance().trackInventory(player, "Trade-Amount")
+                            .getInventory();
+                    BlobDepositor depositor = getDepositor(player);
+                    double balance = depositor.getBalance(from);
+                    DepositorPreTradeEvent event = new DepositorPreTradeEvent(depositor, from, balance);
+                    Bukkit.getPluginManager().callEvent(event);
+                    balance = event.getBalance();
+                    double finalBalance = balance;
+                    Tuple3<Currency, Currency, Double> tuple = new Tuple3<>(from, to, finalBalance);
+                    trading.put(player.getUniqueId(), tuple);
+                    blobInventory.modder("All", itemStackModder -> {
+                        itemStackModder.replace("%balance%", from.display(finalBalance))
+                                .replace("%amount%", from.display(finalBalance));
+                    });
+                    blobInventory.modder("Half", itemStackModder -> {
+                        itemStackModder.replace("%balance%", from.display(finalBalance))
+                                .replace("%amount%", from.display(finalBalance * 0.5));
+                    });
+                    blobInventory.modder("One-Fifth", itemStackModder -> {
+                        itemStackModder.replace("%balance%", from.display(finalBalance))
+                                .replace("%amount%", from.display(finalBalance * 0.2));
+                    });
+                    blobInventory.open(player);
                 }, currency -> {
                     Tradeable tradeable = BlobEconomyAPI.getInstance().getTradeable(currency.getKey());
                     if (tradeable == null)
@@ -195,6 +190,62 @@ public class TraderUI {
                         return;
                     depositor.trade(false);
                 });
+    }
+
+    public void trade(@NotNull Player player,
+                      double multiplier) {
+        Tuple3<Currency, Currency, Double> tuple = trading.get(player.getUniqueId());
+        player.closeInventory();
+        if (tuple == null)
+            return;
+        Currency from = tuple.first();
+        Currency to = tuple.second();
+        BlobDepositor depositor = getDepositor(player);
+        if (depositor == null)
+            return;
+        double amount = tuple.third() * multiplier;
+        BigDecimal bigDecimal = new BigDecimal(amount);
+        depositor.trade(false);
+        depositor.trade(bigDecimal, from, to);
+    }
+
+    public void tradeCustomAmount(@NotNull Player player) {
+        Tuple3<Currency, Currency, Double> tuple = trading.get(player.getUniqueId());
+        player.closeInventory();
+        if (tuple == null)
+            return;
+        Currency from = tuple.first();
+        Currency to = tuple.second();
+        BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
+                    BlobDepositor depositor = getDepositor(player);
+                    if (depositor == null)
+                        return;
+                    try {
+                        double amount = Double.parseDouble(input);
+                        BigDecimal bigDecimal = new BigDecimal(amount);
+                        depositor.trade(false);
+                        depositor.trade(bigDecimal, from, to);
+                    } catch (NumberFormatException ignored) {
+                        Set<String> allKeywords = director.getConfigManager().getWithdrawAllKeywords();
+                        Set<String> halfKeywords = director.getConfigManager().getWithdrawHalfKeywords();
+                        if (allKeywords.contains(input)) {
+                            double amount = depositor.getBalance(from.getKey());
+                            BigDecimal bigDecimal = new BigDecimal(amount);
+                            depositor.trade(false);
+                            depositor.trade(bigDecimal, from, to);
+                        } else if (halfKeywords.contains(input)) {
+                            double amount = depositor.getBalance(from.getKey()) / 2;
+                            BigDecimal bigDecimal = new BigDecimal(amount);
+                            depositor.trade(false);
+                            depositor.trade(bigDecimal, from, to);
+                        } else {
+                            BlobLibMessageAPI.getInstance()
+                                    .getMessage("Builder.Number-Exception", player)
+                                    .handle(player);
+                        }
+                    }
+                }, "Withdraw.Amount-Timeout",
+                "Withdraw.Amount");
     }
 
     @Nullable

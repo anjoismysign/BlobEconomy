@@ -1,12 +1,14 @@
 package us.mytheria.blobeconomy.entities;
 
 import me.anjoismysign.anjo.entities.Result;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomyAPI;
 import us.mytheria.blobeconomy.director.EconomyManagerDirector;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
 import us.mytheria.blobeconomy.entities.tradeable.Tradeable;
+import us.mytheria.blobeconomy.events.DepositorTradeFailEvent;
 import us.mytheria.bloblib.api.BlobLibMessageAPI;
 import us.mytheria.bloblib.entities.BlobCrudable;
 import us.mytheria.bloblib.entities.ObjectManager;
@@ -70,11 +72,25 @@ public class BlobDepositor implements WalletOwner {
         Player player = getPlayer();
         double amount = bigDecimal.doubleValue();
         if (!has(from, amount)) {
+            double remaining = amount - getBalance(from);
+            DepositorTradeFailEvent event = new DepositorTradeFailEvent(this, from, remaining);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isFixed()) {
+                trade(from, to, amount, player);
+                return;
+            }
             BlobLibMessageAPI.getInstance()
                     .getMessage("Withdraw.Insufficient-Balance", player)
                     .handle(player);
             return;
         }
+        trade(from, to, amount, player);
+    }
+
+    private void trade(@NotNull Currency from,
+                       @NotNull Currency to,
+                       double amount,
+                       @NotNull Player player) {
         Tradeable fromTradeable = BlobEconomyAPI.getInstance().getTradeable(from.getKey());
         Tradeable toTradeable = BlobEconomyAPI.getInstance().getTradeable(to.getKey());
         if (fromTradeable == null)

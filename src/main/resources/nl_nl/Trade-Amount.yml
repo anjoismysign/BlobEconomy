@@ -1,0 +1,38 @@
+Locale: nl_nl
+Title: '&lWISSELEN > BEDRAG'
+Size: 27
+Buttons:
+  Background:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  All:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6Alles op de rekening'
+      Lore:
+      - '&7Huidig saldo: %balance%'
+      - '&7Te opnemen bedrag: %amount%'
+    Slot: 10
+  Half:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6Helft van de rekening'
+      Lore:
+      - '&7Huidig saldo: %balance%'
+      - '&7Te opnemen bedrag: %amount%'
+    Slot: 12
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      DisplayName: '&6Wissel 20%'
+      Lore:
+      - '&7Huidig saldo: %balance%'
+      - '&7Te opnemen bedrag: %amount%'
+    Slot: 14
+  Custom:
+    ItemStack:
+      Material: PAPER
+      DisplayName: '&6Specifiek bedrag'
+      Lore:
+      - '&7Click om het bedrag in te voeren'
+    Slot: 16

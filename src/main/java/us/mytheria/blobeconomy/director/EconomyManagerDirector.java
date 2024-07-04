@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomy;
 import us.mytheria.blobeconomy.director.commands.*;
 import us.mytheria.blobeconomy.director.manager.ConfigManager;
+import us.mytheria.blobeconomy.director.manager.ListenerManager;
 import us.mytheria.blobeconomy.director.manager.TradeableDirector;
 import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
@@ -61,6 +62,15 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 "pt_pt/Trade",
                 "ru_ru/Trade",
                 "zh_cn/Trade");
+        registerBlobInventory("Trade-Amount",
+                "es_es/Trade-Amount",
+                "de_de/Trade-Amount",
+                "el_gr/Trade-Amount",
+                "fr_fr/Trade-Amount",
+                "nl_nl/Trade-Amount",
+                "pt_pt/Trade-Amount",
+                "ru_ru/Trade-Amount",
+                "zh_cn/Trade-Amount");
         addManager("ConfigManager", new ConfigManager(this));
         addCurrencyDirector("Currency");
         addManager("TradeableDirector", new TradeableDirector(this));
@@ -110,6 +120,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 e.printStackTrace();
             }
         });
+        addManager("ListenerManager", new ListenerManager(this));
     }
 
     @Override

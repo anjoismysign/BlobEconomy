@@ -1,27 +1,18 @@
 Locale: es_es
-Title: 'Comercio de monedas'
+Title: '&lCOMERCIO DE MONEDAS'
 Size: 27
 Buttons:
   Line:
-    ItemStack:
-      Material: GRAY_STAINED_GLASS_PANE
-      CustomModelData: 0
-      DisplayName: " "
+    ItemStack: BlobLib.Background
     Slot: 19-26
   Return:
-    ItemStack:
-      Material: BARRIER
-      DisplayName: '&6Retirar'
+    ItemStack: BlobLib.Return
     Slot: 18
   Next-Page:
-    ItemStack:
-      Material: ARROW
-      DisplayName: "&6Siguiente página"
+    ItemStack: BlobLib.Next-Page
     Slot: 23
   Previous-Page:
-    ItemStack:
-      Material: ARROW
-      DisplayName: "&6Página anterior"
+    ItemStack: BlobLib.Previous-Page
     Slot: 22
   Currencies:
     ItemStack:
