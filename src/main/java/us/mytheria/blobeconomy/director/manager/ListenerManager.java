@@ -9,8 +9,10 @@ public class ListenerManager extends EconomyManager {
 
     public ListenerManager(EconomyManagerDirector managerDirector) {
         super(managerDirector);
-        if (Bukkit.getPluginManager().isPluginEnabled("BlobTycoon")) {
-            new BlobTycoonTransferFunds(this);
-        }
+        Bukkit.getScheduler().runTask(getPlugin(), () -> {
+            if (Bukkit.getPluginManager().isPluginEnabled("BlobTycoon")) {
+                new BlobTycoonTransferFunds(this);
+            }
+        });
     }
 }
