@@ -143,6 +143,7 @@ public class TraderUI {
                     BlobInventory blobInventory = BlobLibInventoryAPI.getInstance().trackInventory(player, "Trade-Amount")
                             .getInventory();
                     BlobDepositor depositor = getDepositor(player);
+                    depositor.trade(false);
                     double balance = depositor.getBalance(from);
                     DepositorPreTradeEvent event = new DepositorPreTradeEvent(depositor, from, balance);
                     Bukkit.getPluginManager().callEvent(event);
@@ -223,7 +224,6 @@ public class TraderUI {
                     try {
                         double amount = Double.parseDouble(input);
                         BigDecimal bigDecimal = new BigDecimal(amount);
-                        depositor.trade(false);
                         depositor.trade(bigDecimal, from, to);
                     } catch (NumberFormatException ignored) {
                         Set<String> allKeywords = director.getConfigManager().getWithdrawAllKeywords();
