@@ -11,6 +11,7 @@ import us.mytheria.bloblib.entities.ConfigDecorator;
 import us.mytheria.bloblib.entities.inventory.InventoryButton;
 import us.mytheria.bloblib.entities.inventory.InventoryDataRegistry;
 
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,11 +35,11 @@ public class ConfigManager extends EconomyManager {
         freeTraderCurrencyMarket = settingsSection.getBoolean("Free-Trader-Currency-Market");
         transientUsers = settingsSection.getBoolean("Transient-Users");
         alwaysTradableCurrencies = settingsSection.getStringList("Always-Tradable-Currencies")
-                .stream().map(String::toLowerCase).collect(Collectors.toSet());
+                .stream().map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
         withdrawAllKeywords = settingsSection.getStringList("Withdraw-All-Keywords")
-                .stream().map(String::toLowerCase).collect(Collectors.toSet());
+                .stream().map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
         withdrawHalfKeywords = settingsSection.getStringList("Withdraw-Half-Keywords")
-                .stream().map(String::toLowerCase).collect(Collectors.toSet());
+                .stream().map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
 
         BlobLibInventoryAPI inventoryAPI = BlobLibInventoryAPI.getInstance();
         InventoryDataRegistry<InventoryButton> tradeAmount = inventoryAPI.getInventoryDataRegistry("Trade-Amount");
