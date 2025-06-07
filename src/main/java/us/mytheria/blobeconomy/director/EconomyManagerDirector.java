@@ -5,8 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
 import us.mytheria.blobeconomy.BlobEconomy;
 import us.mytheria.blobeconomy.director.commands.*;
-import us.mytheria.blobeconomy.director.manager.ConfigManager;
-import us.mytheria.blobeconomy.director.manager.ListenerManager;
+import us.mytheria.blobeconomy.director.manager.EconomyConfigManager;
 import us.mytheria.blobeconomy.director.manager.TradeableDirector;
 import us.mytheria.blobeconomy.director.ui.TraderUI;
 import us.mytheria.blobeconomy.director.ui.WithdrawerUI;
@@ -71,7 +70,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 "pt_pt/Trade-Amount",
                 "ru_ru/Trade-Amount",
                 "zh_cn/Trade-Amount");
-        addManager("ConfigManager", new ConfigManager(this));
+        addManager("ConfigManager", new EconomyConfigManager(this));
         addCurrencyDirector("Currency");
         addManager("TradeableDirector", new TradeableDirector(this));
         getCurrencyDirector().addNonAdminChildCommand(executorData -> Withdraw.command(executorData, this));
@@ -157,7 +156,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     }
 
     @NotNull
-    public final ConfigManager getConfigManager() {
-        return getManager("ConfigManager", ConfigManager.class);
+    public final EconomyConfigManager getConfigManager() {
+        return getManager("ConfigManager", EconomyConfigManager.class);
     }
 }

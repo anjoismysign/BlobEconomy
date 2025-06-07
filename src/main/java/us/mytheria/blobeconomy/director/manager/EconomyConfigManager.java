@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ConfigManager extends EconomyManager {
+public class EconomyConfigManager extends EconomyManager {
     private boolean freeTraderCurrencyMarket;
     private boolean transientUsers;
     private Set<String> alwaysTradableCurrencies;
@@ -23,7 +23,7 @@ public class ConfigManager extends EconomyManager {
     private Set<String> withdrawHalfKeywords;
     private LockedTrading lockedTrading;
 
-    public ConfigManager(EconomyManagerDirector managerDirector) {
+    public EconomyConfigManager(EconomyManagerDirector managerDirector) {
         super(managerDirector);
         reload();
     }
