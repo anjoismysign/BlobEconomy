@@ -113,10 +113,9 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                     Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> {
                         getDepositorManager().registerPlaceholderAPIExpansion();
                     }, 20L);
-
                 });
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
             }
         });
     }
