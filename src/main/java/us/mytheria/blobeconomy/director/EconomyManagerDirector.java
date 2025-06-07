@@ -119,7 +119,6 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 e.printStackTrace();
             }
         });
-        addManager("ListenerManager", new ListenerManager(this));
     }
 
     @Override
