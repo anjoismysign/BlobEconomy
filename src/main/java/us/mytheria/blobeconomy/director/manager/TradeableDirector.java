@@ -1,6 +1,5 @@
 package us.mytheria.blobeconomy.director.manager;
 
-import org.apache.commons.io.FilenameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -36,7 +35,7 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
                         .simple(managerDirector.getRealFileManager(), "Tradeable"),
                 file -> {
                     YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-                    String currency = FilenameUtils.removeExtension(file.getName());
+                    String currency = file.getName().replace(".yml", "");
                     TradeableOperator operator;
                     if (config.isConfigurationSection("Operator")) {
                         ConfigurationSection operatorSection = config.getConfigurationSection("Operator");

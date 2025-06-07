@@ -81,7 +81,10 @@ public class WithdrawerUI {
                         throw new NullPointerException("Currency display is not expected to be null!");
                     }
                     return result;
-                });
+                },
+                null,
+                null,
+                null);
     }
 
     @Nullable

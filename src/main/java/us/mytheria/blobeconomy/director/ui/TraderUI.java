@@ -130,7 +130,8 @@ public class TraderUI {
                     if (depositor == null)
                         return;
                     depositor.trade(false);
-                });
+                },
+                null);
     }
 
     private void to(Player player,
@@ -190,7 +191,8 @@ public class TraderUI {
                     if (depositor == null)
                         return;
                     depositor.trade(false);
-                });
+                },
+                null);
     }
 
     public void trade(@NotNull Player player,
