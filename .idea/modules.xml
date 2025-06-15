@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BlobEconomy.iml" filepath="$PROJECT_DIR$/.idea/BlobEconomy.iml" />
       <module fileurl="file://$PROJECT_DIR$/blobeconomy.iml" filepath="$PROJECT_DIR$/blobeconomy.iml" />
     </modules>
   </component>
