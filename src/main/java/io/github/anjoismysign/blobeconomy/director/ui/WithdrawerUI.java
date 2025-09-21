@@ -1,5 +1,6 @@
 package io.github.anjoismysign.blobeconomy.director.ui;
 
+import io.github.anjoismysign.bloblib.middleman.itemstack.ItemStackBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +11,6 @@ import io.github.anjoismysign.bloblib.api.BlobLibInventoryAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibListenerAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
-import io.github.anjoismysign.bloblib.itemstack.ItemStackBuilder;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
