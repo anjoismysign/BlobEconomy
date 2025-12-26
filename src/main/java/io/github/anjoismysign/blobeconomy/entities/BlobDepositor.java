@@ -1,6 +1,7 @@
 package io.github.anjoismysign.blobeconomy.entities;
 
 import io.github.anjoismysign.anjo.entities.Result;
+import io.github.anjoismysign.bloblib.entities.currency.BankWalletOwner;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -14,30 +15,32 @@ import io.github.anjoismysign.bloblib.entities.BlobCrudable;
 import io.github.anjoismysign.bloblib.entities.ObjectManager;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.entities.currency.Wallet;
-import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class BlobDepositor implements WalletOwner {
+public class BlobDepositor implements BankWalletOwner {
     private final BlobCrudable crudable;
     private final Wallet wallet;
+    private final Wallet bankWallet;
     private final EconomyManagerDirector director;
     private final String playerName;
 
     public BlobDepositor(BlobCrudable crudable, EconomyManagerDirector director) {
         this.crudable = crudable;
         this.director = director;
-        wallet = deserializeWallet();
+        wallet = deserializeWallet("Wallet");
+        bankWallet = deserializeWallet("BankWallet");
         Player player = getPlayer();
         playerName = player.getName();
     }
 
     @Override
     public BlobCrudable serializeAllAttributes() {
-        serializeWallet();
+        serializeWallet(wallet,"Wallet");
+        serializeWallet(bankWallet,"BankWallet");
         return crudable;
     }
 
@@ -61,9 +64,12 @@ public class BlobDepositor implements WalletOwner {
         return crudable;
     }
 
-    @Override
     public Wallet getWallet() {
         return wallet;
+    }
+
+    public Wallet getBankWallet(){
+        return bankWallet;
     }
 
     public void trade(@NotNull BigDecimal bigDecimal,
@@ -71,8 +77,8 @@ public class BlobDepositor implements WalletOwner {
                       @NotNull Currency to) {
         Player player = getPlayer();
         double amount = bigDecimal.doubleValue();
-        if (!has(from, amount)) {
-            double remaining = amount - getBalance(from);
+        if (!has(from.getKey(), amount)) {
+            double remaining = amount - getBalance(from.getKey());
             DepositorTradeFailEvent event = new DepositorTradeFailEvent(this, from, remaining);
             Bukkit.getPluginManager().callEvent(event);
             if (event.isFixed()) {
@@ -98,8 +104,8 @@ public class BlobDepositor implements WalletOwner {
         if (toTradeable == null)
             throw new NullPointerException("'toTradeable' cannot be null!");
         double total = fromTradeable.trade(toTradeable, amount);
-        withdraw(from, amount);
-        deposit(to, total);
+        withdraw(from.getKey(), amount);
+        deposit(to.getKey(), total);
         BlobLibMessageAPI.getInstance()
                 .getMessage("Withdraw.Successful", player)
                 .modder()
@@ -118,7 +124,7 @@ public class BlobDepositor implements WalletOwner {
                                        @NotNull Currency currency) {
         double amount = bigDecimal.doubleValue();
         Player player = getPlayer();
-        if (!has(currency, amount)) {
+        if (!has(currency.getKey(), amount)) {
             BlobLibMessageAPI.getInstance()
                     .getMessage("Withdraw.Insufficient-Balance", player)
                     .handle(player);
@@ -135,7 +141,7 @@ public class BlobDepositor implements WalletOwner {
             bigDecimal = bigDecimal.subtract(operation.reminder());
             amount = bigDecimal.doubleValue();
         }
-        withdraw(currency, amount);
+        withdraw(currency.getKey(), amount);
         operation.shape().forEach(itemStack -> player.getInventory().addItem(itemStack));
         BlobLibMessageAPI.getInstance()
                 .getMessage("Withdraw.Successful", player)
@@ -166,4 +172,5 @@ public class BlobDepositor implements WalletOwner {
             return;
         director.getTradeableDirector().trade(player, isTrading);
     }
+
 }

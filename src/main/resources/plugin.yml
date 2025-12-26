@@ -8,9 +8,12 @@ softdepend:
   - PlaceholderAPI
 
 commands:
+  bank:
+    description: "Manages economy"
+    usage: "/bank <give/take/giveCurrency/takeCurrency> <player> <amount> <key>"
   eco:
     description: "Manages economy"
-    usage: "/eco <give/take> <player> <amount> <key('silver' is default)>"
+    usage: "/eco <give/take> <player> <amount> <key>"
     aliases: [ beco, blobeco, blobeconomy ]
   currency:
     description: "Manages currency"

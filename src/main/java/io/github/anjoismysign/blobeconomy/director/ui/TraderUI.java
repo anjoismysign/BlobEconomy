@@ -72,6 +72,9 @@ public class TraderUI {
                 })
                 .collect(Collectors.toList());
         Bukkit.getScheduler().runTask(director.getPlugin(), () -> {
+            if (!player.isConnected()){
+                return;
+            }
             blobDepositor.trade(true);
         });
         BlobLibInventoryAPI.getInstance().customSelector("Trade",
@@ -145,7 +148,7 @@ public class TraderUI {
                             .getInventory();
                     BlobDepositor depositor = getDepositor(player);
                     depositor.trade(false);
-                    double balance = depositor.getBalance(from);
+                    double balance = depositor.getBalance(from.getKey());
                     DepositorPreTradeEvent event = new DepositorPreTradeEvent(depositor, from, balance);
                     Bukkit.getPluginManager().callEvent(event);
                     balance = event.getBalance();

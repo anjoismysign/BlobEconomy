@@ -1,5 +1,8 @@
 package io.github.anjoismysign.blobeconomy.director;
 
+import io.github.anjoismysign.bloblib.entities.currency.Wallet;
+import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
+import org.bukkit.BanEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
@@ -102,6 +105,19 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                     true,
                     DepositorLoadEvent::new,
                     DepositorUnloadEvent::new);
+        getDepositorManager().setNotEnoughEvent(notEnoughBalance -> {
+            WalletOwner walletOwner = notEnoughBalance.owner();
+            BlobDepositor blobDepositor = (BlobDepositor) walletOwner;
+            String currency = notEnoughBalance.currency();
+            double missing = notEnoughBalance.missing();
+            Wallet bankWallet = blobDepositor.getBankWallet();
+            double current = bankWallet.get(currency);
+            if (current < missing){
+                return false;
+            }
+            bankWallet.put(currency, current - missing);
+            return true;
+        });
         getCurrencyDirector().whenObjectManagerFilesLoad(manager -> {
             try {
                 withdrawerUI = WithdrawerUI.getInstance(this);
@@ -113,6 +129,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                     Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> {
                         getDepositorManager().registerPlaceholderAPIExpansion();
                     }, 20L);
+                    BankCommand.INSTANCE.load();
                 });
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
