@@ -1,4 +1,4 @@
-Title: '&lCURRENCY TRADING > AMOUNT'
+Title: '&lBANK > Withdraw'
 Size: 27
 Buttons:
   Background:
@@ -23,7 +23,7 @@ Buttons:
   One-Fifth:
     ItemStack:
       Material: DROPPER
-      ItemName: '&6Trade 20%'
+      ItemName: '&620%'
       Lore:
         - '&7Current balance: %balance%'
         - '&7Amount to withdraw: %amount%'
@@ -35,6 +35,3 @@ Buttons:
       Lore:
         - '&7Click to enter the amount'
     Slot: 16
-#Built with BlobLib's inventory framework.
-#If you wish to push its limits,
-#feel free contacting anjoismysign (preferably on Discord)

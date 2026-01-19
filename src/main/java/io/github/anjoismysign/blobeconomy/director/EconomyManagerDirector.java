@@ -1,8 +1,8 @@
 package io.github.anjoismysign.blobeconomy.director;
 
+import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
 import io.github.anjoismysign.bloblib.entities.currency.Wallet;
 import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
-import org.bukkit.BanEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +23,7 @@ import io.github.anjoismysign.bloblib.entities.currency.WalletOwnerManager;
 public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> {
     private WithdrawerUI withdrawerUI;
     private TraderUI traderUI;
+    private BankUI bankUI;
 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
@@ -73,6 +74,10 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 "pt_pt/Trade-Amount",
                 "ru_ru/Trade-Amount",
                 "zh_cn/Trade-Amount");
+        registerBlobInventory("Bank");
+        registerBlobInventory("BankCurrency");
+        registerBlobInventory("BankDeposit");
+        registerBlobInventory("BankWithdraw");
         addManager("ConfigManager", new EconomyConfigManager(this));
         addCurrencyDirector("Currency");
         addManager("TradeableDirector", new TradeableDirector(this));
@@ -122,6 +127,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
             try {
                 withdrawerUI = WithdrawerUI.getInstance(this);
                 traderUI = TraderUI.getInstance(this);
+                bankUI = BankUI.getInstance(this);
                 Bukkit.getScheduler().runTask(getPlugin(), () -> {
                     getDepositorManager().registerEconomy(manager.getObject("default"),
                             getCurrencyDirector());
@@ -143,6 +149,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         getCurrencyDirector().reload();
         getCurrencyDirector().whenReloaded(() ->
                 getTradeableDirector().reload());
+        bankUI.reload();
     }
 
     @Override
