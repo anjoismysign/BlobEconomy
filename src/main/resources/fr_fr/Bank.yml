@@ -1,0 +1,21 @@
+Locale: fr_fr
+Title: '&lBANQUE'
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Retirer'
+      Lore:
+        - '&7Cliquez pour retirer de l''argent'
+    Slot: 11
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Déposer'
+      Lore:
+        - '&7Cliquez pour déposer de l''argent'
+    Slot: 15

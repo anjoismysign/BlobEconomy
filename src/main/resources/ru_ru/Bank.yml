@@ -1,0 +1,21 @@
+Locale: ru_ru
+Title: '&lБАНК'
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Снять'
+      Lore:
+        - '&7Нажмите, чтобы снять деньги'
+    Slot: 11
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Внести'
+      Lore:
+        - '&7Нажмите, чтобы внести деньги'
+    Slot: 15

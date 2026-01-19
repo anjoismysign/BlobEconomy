@@ -1,0 +1,38 @@
+Locale: nl_nl
+Title: '&lBANK > OPNEMEN'
+Size: 27
+Buttons:
+  Background:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Alles in de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om op te nemen: %amount%'
+    Slot: 10
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6De helft van de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om op te nemen: %amount%'
+    Slot: 12
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&620%'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om op te nemen: %amount%'
+    Slot: 14
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6Specifiek bedrag'
+      Lore:
+        - '&7Klik om het bedrag in te voeren'
+    Slot: 16

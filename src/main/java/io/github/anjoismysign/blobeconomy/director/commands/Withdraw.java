@@ -2,7 +2,6 @@ package io.github.anjoismysign.blobeconomy.director.commands;
 
 import io.github.anjoismysign.anjo.entities.Result;
 import io.github.anjoismysign.anjo.entities.Uber;
-import org.bukkit.command.CommandSender;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
@@ -10,6 +9,7 @@ import io.github.anjoismysign.bloblib.entities.BlobChildCommand;
 import io.github.anjoismysign.bloblib.entities.BlobExecutor;
 import io.github.anjoismysign.bloblib.entities.ExecutorData;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
+import org.bukkit.command.CommandSender;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

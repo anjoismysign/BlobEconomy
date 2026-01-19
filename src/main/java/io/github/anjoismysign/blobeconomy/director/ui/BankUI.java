@@ -82,7 +82,6 @@ public class BankUI {
                 currency -> ItemStackBuilder
                         .build(Material.PAPER)
                         .itemName(currency.getDisplayName(player))
-                        .lore(isDeposit ? "&7Click to deposit" : "&7Click to withdraw")
                         .build(),
                 this::openBank,
                 null,

@@ -2,12 +2,6 @@ package io.github.anjoismysign.blobeconomy.director.ui;
 
 import io.github.anjoismysign.anjo.entities.Result;
 import io.github.anjoismysign.anjo.entities.Tuple3;
-import io.github.anjoismysign.bloblib.middleman.itemstack.ItemStackModder;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
@@ -22,6 +16,12 @@ import io.github.anjoismysign.bloblib.entities.ObjectManager;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.entities.inventory.BlobInventory;
 import io.github.anjoismysign.bloblib.entities.translatable.TranslatableItem;
+import io.github.anjoismysign.bloblib.middleman.itemstack.ItemStackModder;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

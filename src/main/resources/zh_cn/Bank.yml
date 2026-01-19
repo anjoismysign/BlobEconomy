@@ -1,0 +1,21 @@
+Locale: zh_cn
+Title: '&l银行'
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6取款'
+      Lore:
+        - '&7点击取款'
+    Slot: 11
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6存款'
+      Lore:
+        - '&7点击存款'
+    Slot: 15

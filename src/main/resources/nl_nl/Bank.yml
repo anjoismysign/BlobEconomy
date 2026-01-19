@@ -1,0 +1,21 @@
+Locale: nl_nl
+Title: '&lBANK'
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Opnemen'
+      Lore:
+        - '&7Klik om geld op te nemen'
+    Slot: 11
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Storten'
+      Lore:
+        - '&7Klik om geld te storten'
+    Slot: 15

@@ -1,0 +1,38 @@
+Locale: el_gr
+Title: '&lΤΡΑΠΕΖΑ > ΑΝΑΛΗΨΗ'
+Size: 27
+Buttons:
+  Background:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Όλα στο λογαριασμό'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό προς ανάληψη: %amount%'
+    Slot: 10
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Μισό του λογαριασμού'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό προς ανάληψη: %amount%'
+    Slot: 12
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&620%'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό προς ανάληψη: %amount%'
+    Slot: 14
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6Συγκεκριμένο ποσό'
+      Lore:
+        - '&7Κάντε κλικ για να εισάγετε το ποσό'
+    Slot: 16

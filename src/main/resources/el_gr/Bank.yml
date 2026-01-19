@@ -1,0 +1,21 @@
+Locale: el_gr
+Title: '&lΤΡΑΠΕΖΑ'
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Ανάληψη'
+      Lore:
+        - '&7Κάντε κλικ για ανάληψη χρημάτων'
+    Slot: 11
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Κατάθεση'
+      Lore:
+        - '&7Κάντε κλικ για κατάθεση χρημάτων'
+    Slot: 15

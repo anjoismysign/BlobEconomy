@@ -1,15 +1,15 @@
 package io.github.anjoismysign.blobeconomy.director;
 
-import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
-import io.github.anjoismysign.bloblib.entities.currency.Wallet;
-import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
-import org.bukkit.Bukkit;
-import org.bukkit.event.EventPriority;
-import org.jetbrains.annotations.NotNull;
 import io.github.anjoismysign.blobeconomy.BlobEconomy;
-import io.github.anjoismysign.blobeconomy.director.commands.*;
+import io.github.anjoismysign.blobeconomy.director.commands.BankCommand;
+import io.github.anjoismysign.blobeconomy.director.commands.BoycottCmd;
+import io.github.anjoismysign.blobeconomy.director.commands.Deposit;
+import io.github.anjoismysign.blobeconomy.director.commands.TraderCmd;
+import io.github.anjoismysign.blobeconomy.director.commands.Withdraw;
+import io.github.anjoismysign.blobeconomy.director.commands.WithdrawerCmd;
 import io.github.anjoismysign.blobeconomy.director.manager.EconomyConfigManager;
 import io.github.anjoismysign.blobeconomy.director.manager.TradeableDirector;
+import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
@@ -18,7 +18,12 @@ import io.github.anjoismysign.blobeconomy.events.DepositorUnloadEvent;
 import io.github.anjoismysign.bloblib.entities.GenericManagerDirector;
 import io.github.anjoismysign.bloblib.entities.ObjectDirector;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
+import io.github.anjoismysign.bloblib.entities.currency.Wallet;
+import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
 import io.github.anjoismysign.bloblib.entities.currency.WalletOwnerManager;
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventPriority;
+import org.jetbrains.annotations.NotNull;
 
 public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> {
     private WithdrawerUI withdrawerUI;
@@ -74,10 +79,42 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 "pt_pt/Trade-Amount",
                 "ru_ru/Trade-Amount",
                 "zh_cn/Trade-Amount");
-        registerBlobInventory("Bank");
-        registerBlobInventory("BankCurrency");
-        registerBlobInventory("BankDeposit");
-        registerBlobInventory("BankWithdraw");
+        registerBlobInventory("Bank",
+                "es_es/Bank",
+                "de_de/Bank",
+                "el_gr/Bank",
+                "fr_fr/Bank",
+                "nl_nl/Bank",
+                "pt_pt/Bank",
+                "ru_ru/Bank",
+                "zh_cn/Bank");
+        registerBlobInventory("BankCurrency",
+                "es_es/BankCurrency",
+                "de_de/BankCurrency",
+                "el_gr/BankCurrency",
+                "fr_fr/BankCurrency",
+                "nl_nl/BankCurrency",
+                "pt_pt/BankCurrency",
+                "ru_ru/BankCurrency",
+                "zh_cn/BankCurrency");
+        registerBlobInventory("BankDeposit",
+                "es_es/BankDeposit",
+                "de_de/BankDeposit",
+                "el_gr/BankDeposit",
+                "fr_fr/BankDeposit",
+                "nl_nl/BankDeposit",
+                "pt_pt/BankDeposit",
+                "ru_ru/BankDeposit",
+                "zh_cn/BankDeposit");
+        registerBlobInventory("BankWithdraw",
+                "es_es/BankWithdraw",
+                "de_de/BankWithdraw",
+                "el_gr/BankWithdraw",
+                "fr_fr/BankWithdraw",
+                "nl_nl/BankWithdraw",
+                "pt_pt/BankWithdraw",
+                "ru_ru/BankWithdraw",
+                "zh_cn/BankWithdraw");
         addManager("ConfigManager", new EconomyConfigManager(this));
         addCurrencyDirector("Currency");
         addManager("TradeableDirector", new TradeableDirector(this));

@@ -1,10 +1,10 @@
 package io.github.anjoismysign.blobeconomy;
 
-import org.jetbrains.annotations.NotNull;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.bloblib.entities.PluginUpdater;
 import io.github.anjoismysign.bloblib.managers.BlobPlugin;
 import io.github.anjoismysign.bloblib.managers.IManagerDirector;
+import org.jetbrains.annotations.NotNull;
 
 public final class BlobEconomy extends BlobPlugin {
     private IManagerDirector proxy;

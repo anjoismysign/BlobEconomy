@@ -1,8 +1,8 @@
 package io.github.anjoismysign.blobeconomy.events;
 
+import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 
 /**
  * Fired before loading depositor's into database.

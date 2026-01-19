@@ -1,11 +1,11 @@
 package io.github.anjoismysign.blobeconomy.entities.tradeable;
 
 import io.github.anjoismysign.anjo.entities.Uber;
-import org.bukkit.configuration.ConfigurationSection;
-import org.jetbrains.annotations.NotNull;
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.exception.ConfigurationFieldException;
+import org.bukkit.configuration.ConfigurationSection;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.Random;

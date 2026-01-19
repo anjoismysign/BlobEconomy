@@ -1,0 +1,38 @@
+Locale: zh_cn
+Title: '&l银行 > 提款'
+Size: 27
+Buttons:
+  Background:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6账户中的所有内容'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7取款金额: %amount%'
+    Slot: 10
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6账户的一半'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7取款金额: %amount%'
+    Slot: 12
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&620%'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7取款金额: %amount%'
+    Slot: 14
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6指定金额'
+      Lore:
+        - '&7点击输入金额'
+    Slot: 16

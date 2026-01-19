@@ -1,4 +1,5 @@
-Title: '&lBANK > DEPOSIT'
+Locale: de_de
+Title: '&lBANK > EINZAHLEN'
 Size: 27
 Buttons:
   Background:
@@ -7,7 +8,7 @@ Buttons:
   All:
     ItemStack:
       Material: DROPPER
-      ItemName: '&6Everything in the account'
+      ItemName: '&6Alles im Konto'
       Lore:
         - '&7Current balance: %balance%'
         - '&7Amount to deposit: %amount%'
@@ -15,7 +16,7 @@ Buttons:
   Half:
     ItemStack:
       Material: DROPPER
-      ItemName: '&6Half the account'
+      ItemName: '&6Die Hälfte des Kontos'
       Lore:
         - '&7Current balance: %balance%'
         - '&7Amount to deposit: %amount%'
@@ -31,7 +32,7 @@ Buttons:
   Custom:
     ItemStack:
       Material: PAPER
-      ItemName: '&6Specific amount'
+      ItemName: '&6Bestimmter Betrag'
       Lore:
-        - '&7Click to enter the amount'
+        - '&7Klicken Sie, um den Betrag einzugeben'
     Slot: 16

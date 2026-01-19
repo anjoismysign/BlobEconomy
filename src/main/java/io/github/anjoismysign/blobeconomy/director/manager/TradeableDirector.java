@@ -1,12 +1,5 @@
 package io.github.anjoismysign.blobeconomy.director.manager;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import org.jetbrains.annotations.NotNull;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
 import io.github.anjoismysign.blobeconomy.entities.tradeable.DynamicTradeableOperator;
@@ -17,6 +10,13 @@ import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.entities.ObjectDirector;
 import io.github.anjoismysign.bloblib.entities.ObjectDirectorData;
 import io.github.anjoismysign.bloblib.exception.ConfigurationFieldException;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Objects;

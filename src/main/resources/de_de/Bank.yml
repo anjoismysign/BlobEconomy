@@ -1,0 +1,21 @@
+Locale: de_de
+Title: '&lBANK'
+Size: 27
+Buttons:
+  Line:
+    ItemStack: BlobLib.Background
+    Slot: 0-26
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Abheben'
+      Lore:
+        - '&7Klicke, um Geld abzuheben'
+    Slot: 11
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Einzahlen'
+      Lore:
+        - '&7Klicke, um Geld einzuzahlen'
+    Slot: 15

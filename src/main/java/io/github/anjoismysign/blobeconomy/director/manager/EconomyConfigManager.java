@@ -1,7 +1,5 @@
 package io.github.anjoismysign.blobeconomy.director.manager;
 
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
 import io.github.anjoismysign.blobeconomy.director.EconomyManager;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
@@ -10,6 +8,8 @@ import io.github.anjoismysign.bloblib.api.BlobLibInventoryAPI;
 import io.github.anjoismysign.bloblib.entities.ConfigDecorator;
 import io.github.anjoismysign.bloblib.entities.inventory.InventoryButton;
 import io.github.anjoismysign.bloblib.entities.inventory.InventoryDataRegistry;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.Locale;
 import java.util.Set;

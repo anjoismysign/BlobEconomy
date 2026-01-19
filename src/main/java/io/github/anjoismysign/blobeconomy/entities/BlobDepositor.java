@@ -1,10 +1,6 @@
 package io.github.anjoismysign.blobeconomy.entities;
 
 import io.github.anjoismysign.anjo.entities.Result;
-import io.github.anjoismysign.bloblib.entities.currency.BankWalletOwner;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
@@ -13,8 +9,12 @@ import io.github.anjoismysign.blobeconomy.events.DepositorTradeFailEvent;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.entities.BlobCrudable;
 import io.github.anjoismysign.bloblib.entities.ObjectManager;
+import io.github.anjoismysign.bloblib.entities.currency.BankWalletOwner;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.entities.currency.Wallet;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.List;

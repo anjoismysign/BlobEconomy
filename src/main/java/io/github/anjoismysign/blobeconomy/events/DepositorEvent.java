@@ -1,8 +1,8 @@
 package io.github.anjoismysign.blobeconomy.events;
 
+import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 
 public abstract class DepositorEvent extends Event {
     private final BlobDepositor depositor;
