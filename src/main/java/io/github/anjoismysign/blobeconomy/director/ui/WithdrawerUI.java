@@ -2,6 +2,7 @@ package io.github.anjoismysign.blobeconomy.director.ui;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.events.DepositorWithdrawEvent;
 import io.github.anjoismysign.bloblib.api.BlobLibInventoryAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibListenerAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
@@ -52,20 +53,38 @@ public class WithdrawerUI {
                                 BlobDepositor depositor = getDepositor(player);
                                 if (depositor == null)
                                     return;
+                                double amount;
+                                BigDecimal bigDecimal;
+                                String currencyKey = currency.getKey();
                                 try {
-                                    double amount = Double.parseDouble(input);
-                                    BigDecimal bigDecimal = new BigDecimal(amount);
+                                    amount = Double.parseDouble(input);
+                                    DepositorWithdrawEvent withdrawEvent = new DepositorWithdrawEvent(depositor, input, amount, currencyKey, false, false);
+                                    Bukkit.getPluginManager().callEvent(withdrawEvent);
+                                    if (withdrawEvent.isCancelled()){
+                                        return;
+                                    }
+                                    bigDecimal = new BigDecimal(withdrawEvent.getAmount());
                                     depositor.withdrawTargetCurrency(bigDecimal, currency);
                                 } catch (NumberFormatException ignored) {
                                     Set<String> allKeywords = director.getConfigManager().getWithdrawAllKeywords();
                                     Set<String> halfKeywords = director.getConfigManager().getWithdrawHalfKeywords();
                                     if (allKeywords.contains(input)) {
-                                        double amount = depositor.getBalance(currency.getKey());
-                                        BigDecimal bigDecimal = new BigDecimal(amount);
+                                        amount = depositor.getBalance(currency.getKey());
+                                        DepositorWithdrawEvent withdrawEvent = new DepositorWithdrawEvent(depositor, input, amount, currencyKey, true, false);
+                                        Bukkit.getPluginManager().callEvent(withdrawEvent);
+                                        if (withdrawEvent.isCancelled()){
+                                            return;
+                                        }
+                                        bigDecimal = new BigDecimal(withdrawEvent.getAmount());
                                         depositor.withdrawTargetCurrency(bigDecimal, currency);
                                     } else if (halfKeywords.contains(input)) {
-                                        double amount = depositor.getBalance(currency.getKey()) / 2;
-                                        BigDecimal bigDecimal = new BigDecimal(amount);
+                                        amount = depositor.getBalance(currency.getKey()) / 2;
+                                        DepositorWithdrawEvent withdrawEvent = new DepositorWithdrawEvent(depositor, input, amount, currencyKey, false, true);
+                                        Bukkit.getPluginManager().callEvent(withdrawEvent);
+                                        if (withdrawEvent.isCancelled()){
+                                            return;
+                                        }
+                                        bigDecimal = new BigDecimal(withdrawEvent.getAmount());
                                         depositor.withdrawTargetCurrency(bigDecimal, currency);
                                     } else {
                                         BlobLibMessageAPI.getInstance()
