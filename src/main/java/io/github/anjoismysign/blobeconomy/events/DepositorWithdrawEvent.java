@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Fired when depositor uses the WithdrawerUI (/currency trader %playerName%)
+ * Fired when depositor uses the WithdrawerUI (/currency withdrawer %playerName%)
  */
 public class DepositorWithdrawEvent extends DepositorEvent implements Cancellable {
     private static final HandlerList HANDLERS_LIST = new HandlerList();

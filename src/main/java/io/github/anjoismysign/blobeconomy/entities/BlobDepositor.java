@@ -5,6 +5,7 @@ import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
 import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
+import io.github.anjoismysign.blobeconomy.events.DepositorTradeEvent;
 import io.github.anjoismysign.blobeconomy.events.DepositorTradeFailEvent;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.entities.BlobCrudable;
@@ -106,12 +107,14 @@ public class BlobDepositor implements BankWalletOwner {
         double total = fromTradeable.trade(toTradeable, amount);
         withdraw(from.getKey(), amount);
         deposit(to.getKey(), total);
+        DepositorTradeEvent event = new DepositorTradeEvent(this, amount, total, from.getKey(), to.getKey());
+        Bukkit.getPluginManager().callEvent(event);
         BlobLibMessageAPI.getInstance()
                 .getMessage("Withdraw.Successful", player)
                 .modder()
                 .replace("%display%", from.display(amount))
                 .get()
-                .handle(player);
+                .handle(player); //this did run successfully
     }
 
     /**
