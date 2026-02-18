@@ -113,6 +113,7 @@ public class BlobDepositor implements BankWalletOwner {
                 .getMessage("Withdraw.Successful", player)
                 .modder()
                 .replace("%display%", from.display(amount))
+                .replace("%toDisplay%", to.display(total))
                 .get()
                 .handle(player); //this did run successfully
     }
