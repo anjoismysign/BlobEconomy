@@ -62,7 +62,7 @@ public class TradeableDirector extends ObjectDirector<Tradeable> {
                 getObjectManager().values().stream()
                         .map(Tradeable::operator)
                         .forEach(TradeableOperator::naturalUpdate);
-                trading.forEach(uuid -> {
+                new HashSet<>(trading).forEach(uuid -> {
                     Player player = Bukkit.getPlayer(uuid);
                     if (player == null)
                         trading.remove(uuid);

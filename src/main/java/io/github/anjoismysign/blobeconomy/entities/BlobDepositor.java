@@ -78,6 +78,14 @@ public class BlobDepositor implements BankWalletOwner {
                       @NotNull Currency to) {
         Player player = getPlayer();
         double amount = bigDecimal.doubleValue();
+        if (amount < 0){
+            BlobLibMessageAPI.getInstance().getMessage("Economy.Not-Enough")
+                    .modder()
+                    .replace("%display%", from.display(amount))
+                    .get()
+                    .handle(player);
+            return;
+        }
         if (!has(from.getKey(), amount)) {
             double remaining = amount - getBalance(from.getKey());
             DepositorTradeFailEvent event = new DepositorTradeFailEvent(this, from, remaining);
