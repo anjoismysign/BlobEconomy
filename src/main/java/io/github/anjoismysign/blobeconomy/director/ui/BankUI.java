@@ -145,11 +145,18 @@ public class BankUI {
         player.closeInventory();
         BlobLibListenerAPI.getInstance().addChatListener(player, 300, input -> {
             BlobDepositor depositor = getDepositor(player);
-            if (depositor == null) return;
-
+            if (depositor == null) {
+                return;
+            }
+            var currency = session.currency;
             try {
                 double amount = Double.parseDouble(input);
-                executeTransaction(depositor, session.currency(), amount, session.isDeposit());
+                if (amount < 0){
+                    BlobLibMessageAPI.getInstance().getMessage("Economy.Number-Exception")
+                            .handle(player);
+                    return;
+                }
+                executeTransaction(depositor, currency, amount, session.isDeposit());
                 sessions.remove(player.getUniqueId());
             } catch (NumberFormatException e) {
                 BlobLibMessageAPI.getInstance().getMessage("Builder.Number-Exception", player).handle(player);

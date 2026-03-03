@@ -58,6 +58,11 @@ public class WithdrawerUI {
                                 String currencyKey = currency.getKey();
                                 try {
                                     amount = Double.parseDouble(input);
+                                    if (amount < 0){
+                                        BlobLibMessageAPI.getInstance().getMessage("Economy.Number-Exception")
+                                                .handle(player);
+                                        return;
+                                    }
                                     DepositorWithdrawEvent withdrawEvent = new DepositorWithdrawEvent(depositor, input, amount, currencyKey, false, false);
                                     Bukkit.getPluginManager().callEvent(withdrawEvent);
                                     if (withdrawEvent.isCancelled()){

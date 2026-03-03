@@ -79,10 +79,7 @@ public class BlobDepositor implements BankWalletOwner {
         Player player = getPlayer();
         double amount = bigDecimal.doubleValue();
         if (amount < 0){
-            BlobLibMessageAPI.getInstance().getMessage("Economy.Not-Enough")
-                    .modder()
-                    .replace("%display%", from.display(amount))
-                    .get()
+            BlobLibMessageAPI.getInstance().getMessage("Economy.Number-Exception")
                     .handle(player);
             return;
         }
