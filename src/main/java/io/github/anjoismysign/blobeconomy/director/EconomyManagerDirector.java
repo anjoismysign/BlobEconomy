@@ -2,6 +2,7 @@ package io.github.anjoismysign.blobeconomy.director;
 
 import io.github.anjoismysign.blobeconomy.BlobEconomy;
 import io.github.anjoismysign.blobeconomy.director.commands.BankCommand;
+import io.github.anjoismysign.blobeconomy.director.commands.BlobEconomyCommand;
 import io.github.anjoismysign.blobeconomy.director.commands.BoycottCmd;
 import io.github.anjoismysign.blobeconomy.director.commands.Deposit;
 import io.github.anjoismysign.blobeconomy.director.commands.TraderCmd;
@@ -173,6 +174,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                         getDepositorManager().registerPlaceholderAPIExpansion();
                     }, 20L);
                     BankCommand.INSTANCE.load();
+                    BlobEconomyCommand.INSTANCE.load();
                 });
             } catch (Throwable throwable) {
                 throwable.printStackTrace();

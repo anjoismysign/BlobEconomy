@@ -8,6 +8,8 @@ softdepend:
   - PlaceholderAPI
 
 commands:
+  blobeconomy:
+    description: "Manages economy"
   bank:
     description: "Manages economy"
     usage: "/bank <give/take/giveCurrency/takeCurrency> <player> <amount> <key>"
