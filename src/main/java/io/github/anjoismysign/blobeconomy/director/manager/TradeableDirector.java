@@ -7,9 +7,9 @@ import io.github.anjoismysign.blobeconomy.entities.tradeable.StaticTradeableOper
 import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
 import io.github.anjoismysign.blobeconomy.entities.tradeable.TradeableOperator;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
-import io.github.anjoismysign.bloblib.entities.ObjectDirector;
-import io.github.anjoismysign.bloblib.entities.ObjectDirectorData;
 import io.github.anjoismysign.bloblib.exception.ConfigurationFieldException;
+import io.github.anjoismysign.bloblib.manager.ObjectDirector;
+import io.github.anjoismysign.bloblib.manager.ObjectDirectorData;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;

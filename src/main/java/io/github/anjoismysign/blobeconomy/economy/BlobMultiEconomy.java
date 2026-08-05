@@ -1,8 +1,8 @@
 package io.github.anjoismysign.blobeconomy.economy;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
-import io.github.anjoismysign.bloblib.entities.ObjectDirector;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Currency;
+import io.github.anjoismysign.bloblib.manager.ObjectDirector;
 import net.milkbowl.vault.economy.IdentityEconomy;
 import net.milkbowl.vault.economy.MultiEconomy;
 import net.milkbowl.vault.economy.wrappers.MultiEconomyWrapper;

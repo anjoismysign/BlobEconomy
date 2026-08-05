@@ -1,6 +1,6 @@
 package io.github.anjoismysign.blobeconomy.entities.tradeable;
 
-import io.github.anjoismysign.bloblib.entities.BlobObject;
+import io.github.anjoismysign.bloblib.domain.BlobObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

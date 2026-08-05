@@ -2,8 +2,8 @@ package io.github.anjoismysign.blobeconomy.director.commands;
 
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibEconomyAPI;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
-import io.github.anjoismysign.bloblib.utilities.TextColor;
+import io.github.anjoismysign.bloblib.currency.Currency;
+import io.github.anjoismysign.bloblib.utility.TextColor;
 import io.github.anjoismysign.skeramidcommands.command.Command;
 import io.github.anjoismysign.skeramidcommands.command.CommandBuilder;
 import io.github.anjoismysign.skeramidcommands.command.CommandTarget;

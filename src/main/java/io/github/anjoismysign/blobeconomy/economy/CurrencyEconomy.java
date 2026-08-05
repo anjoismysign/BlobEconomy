@@ -3,7 +3,7 @@ package io.github.anjoismysign.blobeconomy.economy;
 import io.github.anjoismysign.blobeconomy.director.manager.BlobDepositorManager;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 import io.github.anjoismysign.blobeconomy.entities.NotEnoughBalance;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Currency;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.IdentityEconomy;
 import org.bukkit.Bukkit;

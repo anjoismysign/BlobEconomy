@@ -1,9 +1,9 @@
 package io.github.anjoismysign.blobeconomy;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
-import io.github.anjoismysign.bloblib.entities.PluginUpdater;
-import io.github.anjoismysign.bloblib.managers.BlobPlugin;
-import io.github.anjoismysign.bloblib.managers.IManagerDirector;
+import io.github.anjoismysign.bloblib.manager.BlobPlugin;
+import io.github.anjoismysign.bloblib.manager.IManagerDirector;
+import io.github.anjoismysign.bloblib.updater.PluginUpdater;
 import org.jetbrains.annotations.NotNull;
 
 public final class BlobEconomy extends BlobPlugin {
