@@ -1,7 +1,7 @@
 package io.github.anjoismysign.blobeconomy.events;
 
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Currency;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 

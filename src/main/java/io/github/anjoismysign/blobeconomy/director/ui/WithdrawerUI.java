@@ -6,7 +6,7 @@ import io.github.anjoismysign.blobeconomy.events.DepositorWithdrawEvent;
 import io.github.anjoismysign.bloblib.api.BlobLibInventoryAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibListenerAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Currency;
 import io.github.anjoismysign.bloblib.middleman.itemstack.ItemStackBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

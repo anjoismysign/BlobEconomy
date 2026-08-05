@@ -5,64 +5,45 @@ import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
 import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
+import io.github.anjoismysign.blobeconomy.events.DepositorLoadEvent;
 import io.github.anjoismysign.blobeconomy.events.DepositorTradeEvent;
 import io.github.anjoismysign.blobeconomy.events.DepositorTradeFailEvent;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
-import io.github.anjoismysign.bloblib.entities.BlobCrudable;
-import io.github.anjoismysign.bloblib.entities.ObjectManager;
-import io.github.anjoismysign.bloblib.entities.currency.BankWalletOwner;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
-import io.github.anjoismysign.bloblib.entities.currency.Wallet;
+import io.github.anjoismysign.bloblib.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Wallet;
+import io.github.anjoismysign.bloblib.currency.WalletHolder;
+import io.github.anjoismysign.bloblib.manager.ObjectManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class BlobDepositor implements BankWalletOwner {
-    private final BlobCrudable crudable;
-    private final Wallet wallet;
-    private final Wallet bankWallet;
+public class BlobDepositor implements WalletHolder {
+    private final Wallet wallet = new Wallet();
+    private final Wallet bankWallet = new Wallet();
     private final EconomyManagerDirector director;
     private final String playerName;
 
-    public BlobDepositor(BlobCrudable crudable, EconomyManagerDirector director) {
-        this.crudable = crudable;
+    public BlobDepositor(String playerName, EconomyManagerDirector director){
+        this.playerName = playerName;
         this.director = director;
-        wallet = deserializeWallet("Wallet");
-        bankWallet = deserializeWallet("BankWallet");
-        Player player = getPlayer();
-        playerName = player.getName();
+        DepositorLoadEvent event = new DepositorLoadEvent(this);
+        Bukkit.getPluginManager().callEvent(event);
     }
 
-    @Override
-    public BlobCrudable serializeAllAttributes() {
-        serializeWallet(wallet,"Wallet");
-        serializeWallet(bankWallet,"BankWallet");
-        return crudable;
-    }
-
-    @Override
     @NotNull
     public String getPlayerName() {
         return playerName;
     }
 
-    @Override
     @NotNull
-    public String getPlayerUniqueId() {
-        Player player = getPlayer();
-        if (player == null || !player.isOnline())
-            throw new NullPointerException("Player is null");
-        return player.getUniqueId().toString();
-    }
-
-    @Override
-    public BlobCrudable blobCrudable() {
-        return crudable;
+    public Player getPlayer(){
+        return Objects.requireNonNull(Bukkit.getPlayerExact(getPlayerName()), "Player is not online!");
     }
 
     public Wallet getWallet() {
@@ -83,8 +64,8 @@ public class BlobDepositor implements BankWalletOwner {
                     .handle(player);
             return;
         }
-        if (!has(from.getKey(), amount)) {
-            double remaining = amount - getBalance(from.getKey());
+        if (!getWallet().has(from.getKey(), amount)) {
+            double remaining = amount - getWallet().balance(from.getKey());
             DepositorTradeFailEvent event = new DepositorTradeFailEvent(this, from, remaining);
             Bukkit.getPluginManager().callEvent(event);
             if (event.isFixed()) {
@@ -110,8 +91,8 @@ public class BlobDepositor implements BankWalletOwner {
         if (toTradeable == null)
             throw new NullPointerException("'toTradeable' cannot be null!");
         double total = fromTradeable.trade(toTradeable, amount);
-        withdraw(from.getKey(), amount);
-        deposit(to.getKey(), total);
+        getWallet().subtract(from.getKey(), amount);
+        getWallet().add(to.getKey(), total);
         DepositorTradeEvent event = new DepositorTradeEvent(this, amount, total, from.getKey(), to.getKey());
         Bukkit.getPluginManager().callEvent(event);
         BlobLibMessageAPI.getInstance()
@@ -132,7 +113,7 @@ public class BlobDepositor implements BankWalletOwner {
                                        @NotNull Currency currency) {
         double amount = bigDecimal.doubleValue();
         Player player = getPlayer();
-        if (!has(currency.getKey(), amount)) {
+        if (!getWallet().has(currency.getKey(), amount)) {
             BlobLibMessageAPI.getInstance()
                     .getMessage("Withdraw.Insufficient-Balance", player)
                     .handle(player);
@@ -149,7 +130,7 @@ public class BlobDepositor implements BankWalletOwner {
             bigDecimal = bigDecimal.subtract(operation.reminder());
             amount = bigDecimal.doubleValue();
         }
-        withdraw(currency.getKey(), amount);
+        getWallet().subtract(currency.getKey(), amount);
         operation.shape().forEach(itemStack -> player.getInventory().addItem(itemStack));
         BlobLibMessageAPI.getInstance()
                 .getMessage("Withdraw.Successful", player)
@@ -176,8 +157,6 @@ public class BlobDepositor implements BankWalletOwner {
 
     public void trade(boolean isTrading) {
         Player player = getPlayer();
-        if (player == null)
-            return;
         director.getTradeableDirector().trade(player, isTrading);
     }
 

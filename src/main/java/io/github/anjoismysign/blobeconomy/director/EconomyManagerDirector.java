@@ -8,28 +8,36 @@ import io.github.anjoismysign.blobeconomy.director.commands.Deposit;
 import io.github.anjoismysign.blobeconomy.director.commands.TraderCmd;
 import io.github.anjoismysign.blobeconomy.director.commands.Withdraw;
 import io.github.anjoismysign.blobeconomy.director.commands.WithdrawerCmd;
+import io.github.anjoismysign.blobeconomy.director.manager.BlobDepositorManager;
 import io.github.anjoismysign.blobeconomy.director.manager.EconomyConfigManager;
 import io.github.anjoismysign.blobeconomy.director.manager.TradeableDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
+import io.github.anjoismysign.blobeconomy.economy.BlobMultiEconomy;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
-import io.github.anjoismysign.blobeconomy.events.DepositorLoadEvent;
-import io.github.anjoismysign.blobeconomy.events.DepositorUnloadEvent;
-import io.github.anjoismysign.bloblib.entities.GenericManagerDirector;
-import io.github.anjoismysign.bloblib.entities.ObjectDirector;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
-import io.github.anjoismysign.bloblib.entities.currency.Wallet;
-import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
-import io.github.anjoismysign.bloblib.entities.currency.WalletOwnerManager;
+import io.github.anjoismysign.bloblib.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Wallet;
+import io.github.anjoismysign.bloblib.manager.GenericManagerDirector;
+import io.github.anjoismysign.bloblib.manager.ObjectDirector;
 import org.bukkit.Bukkit;
-import org.bukkit.event.EventPriority;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> {
+    private static final Pattern pattern = Pattern.compile("^.");
     private WithdrawerUI withdrawerUI;
     private TraderUI traderUI;
     private BankUI bankUI;
+
+    private final BlobDepositorManager depositorManager;
 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
@@ -129,28 +137,9 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         getCurrencyDirector().addAdminChildTabCompleter(BoycottCmd::tabCompleter);
         getCurrencyDirector().addNonAdminChildCommand(executorData -> TraderCmd.command(executorData, this));
         getCurrencyDirector().addNonAdminChildTabCompleter(TraderCmd::tabCompleter);
-        boolean transientUsers = getConfigManager().isTransientUsers();
-        if (transientUsers)
-            addTransientWalletOwnerManager("DepositorManager",
-                    x -> x, crudable ->
-                            new BlobDepositor(crudable, this),
-                    "BlobDepositor",
-                    true,
-                    DepositorLoadEvent::new,
-                    DepositorUnloadEvent::new,
-                    EventPriority.NORMAL,
-                    EventPriority.NORMAL);
-        else
-            addWalletOwnerManager("DepositorManager",
-                    x -> x, crudable ->
-                            new BlobDepositor(crudable, this),
-                    "BlobDepositor",
-                    true,
-                    DepositorLoadEvent::new,
-                    DepositorUnloadEvent::new);
+        depositorManager = new BlobDepositorManager(this);
         getDepositorManager().setNotEnoughEvent(notEnoughBalance -> {
-            WalletOwner walletOwner = notEnoughBalance.owner();
-            BlobDepositor blobDepositor = (BlobDepositor) walletOwner;
+            BlobDepositor blobDepositor = notEnoughBalance.owner();
             String currency = notEnoughBalance.currency();
             double missing = notEnoughBalance.missing();
             Wallet bankWallet = blobDepositor.getBankWallet();
@@ -158,6 +147,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
             if (current < missing){
                 return false;
             }
+            blobDepositor.deposit(currency, missing);
             bankWallet.put(currency, current - missing);
             return true;
         });
@@ -167,12 +157,11 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 traderUI = TraderUI.getInstance(this);
                 bankUI = BankUI.getInstance(this);
                 Bukkit.getScheduler().runTask(getPlugin(), () -> {
-                    getDepositorManager().registerEconomy(manager.getObject("default"),
-                            getCurrencyDirector());
-                    getDepositorManager().registerDefaultEconomyCommand(getCurrencyDirector());
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> {
-                        getDepositorManager().registerPlaceholderAPIExpansion();
-                    }, 20L);
+                    if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
+                        BlobMultiEconomy.load(this);
+                    }
+                    instantiateBlobPHExpansion("economy", expansion ->
+                            expansion.putStartsWith("", this::economyPlaceholder));
                     BankCommand.INSTANCE.load();
                     BlobEconomyCommand.INSTANCE.load();
                 });
@@ -212,12 +201,57 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     }
 
     @NotNull
-    public final WalletOwnerManager<BlobDepositor> getDepositorManager() {
-        return getWalletOwnerManager("DepositorManager", BlobDepositor.class);
+    public final BlobDepositorManager getDepositorManager() {
+        return depositorManager;
     }
 
     @NotNull
     public final EconomyConfigManager getConfigManager() {
         return getManager("ConfigManager", EconomyConfigManager.class);
+    }
+
+    @Nullable
+    private String economyPlaceholder(@NotNull OfflinePlayer offlinePlayer, @NotNull String identifier) {
+        String[] split = identifier.split("_");
+        if (split.length != 2) {
+            return null;
+        }
+        Set<String> customCrypto = getCurrencyDirector().getObjectManager().keys();
+        if (!customCrypto.contains(split[0])) {
+            return "Invalid currency: " + split[0];
+        }
+        Optional<BlobDepositor> optional = getDepositorManager().isWalletOwner(offlinePlayer.getUniqueId());
+        if (optional.isEmpty()) {
+            return "Invalid player: " + offlinePlayer.getName();
+        }
+        BlobDepositor walletOwner = optional.get();
+        Currency currency = getCurrencyDirector().getObjectManager().getObject(split[0]);
+        String subIdentifier = split[1];
+        Player player = Bukkit.getPlayer(offlinePlayer.getUniqueId());
+        switch (subIdentifier) {
+            case "bankdisplay":
+                Wallet bankWallet = walletOwner.getBankWallet();
+                return currency.display(bankWallet.balance(currency.getKey()));
+            case "display":
+                return currency.display(walletOwner.getBalance(currency.getKey()));
+            case "balance":
+                return "" + walletOwner.getBalance(currency.getKey());
+            case "displayName":
+                if (player == null) {
+                    return currency.getDisplayName();
+                }
+                return currency.getDisplayName(player);
+            case "capitalizeDisplayName":
+                String displayName;
+                if (player == null) {
+                    displayName = currency.getDisplayName();
+                } else {
+                    displayName = currency.getDisplayName(player);
+                }
+                displayName = pattern.matcher(displayName).replaceFirst(m -> m.group().toUpperCase(Locale.ROOT));
+                return displayName;
+            default:
+                return "Invalid sub-identifier: " + subIdentifier;
+        }
     }
 }

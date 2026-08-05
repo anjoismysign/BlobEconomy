@@ -1,7 +1,7 @@
 package io.github.anjoismysign.blobeconomy.director;
 
 import io.github.anjoismysign.blobeconomy.BlobEconomy;
-import io.github.anjoismysign.bloblib.entities.GenericManager;
+import io.github.anjoismysign.bloblib.manager.GenericManager;
 
 public class EconomyManager extends GenericManager<BlobEconomy, EconomyManagerDirector> {
 

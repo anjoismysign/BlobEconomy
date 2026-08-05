@@ -1,6 +1,6 @@
 package io.github.anjoismysign.blobeconomy.entities.tradeable;
 
-import io.github.anjoismysign.bloblib.utilities.TextColor;
+import io.github.anjoismysign.bloblib.utility.TextColor;
 
 import java.text.DecimalFormat;
 

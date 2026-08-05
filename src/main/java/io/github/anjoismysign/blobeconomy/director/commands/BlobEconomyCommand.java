@@ -2,11 +2,13 @@ package io.github.anjoismysign.blobeconomy.director.commands;
 
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibEconomyAPI;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
-import io.github.anjoismysign.bloblib.utilities.TextColor;
+import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
+import io.github.anjoismysign.bloblib.currency.Currency;
+import io.github.anjoismysign.bloblib.utility.TextColor;
 import io.github.anjoismysign.skeramidcommands.command.Command;
 import io.github.anjoismysign.skeramidcommands.command.CommandBuilder;
 import io.github.anjoismysign.skeramidcommands.command.CommandTarget;
+import io.github.anjoismysign.skeramidcommands.commandtarget.BukkitCommandTarget;
 import io.github.anjoismysign.skeramidcommands.server.bukkit.BukkitAdapter;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +21,6 @@ public enum BlobEconomyCommand {
     public void load(){
         BlobEconomyAPI api = BlobEconomyAPI.getInstance();
 
-        Command blobeconomy = CommandBuilder.of("blobeconomy").build();
         CommandTarget<Double> amountTarget = new CommandTarget<>() {
             @Override
             public List<String> get() {
@@ -49,6 +50,7 @@ public enum BlobEconomyCommand {
             }
         };
 
+        Command blobeconomy = CommandBuilder.of("blobeconomy").build();
         Command display = blobeconomy.child("display");
         display.setParameters(currencyTarget, amountTarget);
         display.onExecute((permissionMessenger, args) -> {
@@ -67,6 +69,85 @@ public enum BlobEconomyCommand {
                 return;
             }
             sender.sendMessage(BlobLibEconomyAPI.getInstance().getElasticEconomy().getImplementation(key).format(amount));
+        });
+
+        Command eco = CommandBuilder.of("eco").permission("blobeconomy.admin").build();
+
+        Command give = eco.child("give");
+        give.setParameters(BukkitCommandTarget.ONLINE_PLAYERS(), amountTarget, currencyTarget);
+        give.onExecute((permissionMessenger, args) -> {
+            CommandSender sender = BukkitAdapter.getInstance().of(permissionMessenger);
+            BlobEconomyCommandContext context = BlobEconomyCommandContext.WITH_AMOUNT(args, sender);
+            if (context == null){
+                return;
+            }
+            context.walletOwner().deposit(context.currency().getKey(), context.amount());
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Economy.Deposit", sender)
+                    .modify(s -> s.replace("%display%", context.currency().display(context.amount()))
+                            .replace("%currency%", context.currency().getDisplayName(context.player()))
+                            .replace("%player%", context.player().getName()))
+                    .toCommandSender(sender);
+        });
+
+        Command take = eco.child("take");
+        take.setParameters(BukkitCommandTarget.ONLINE_PLAYERS(), amountTarget, currencyTarget);
+        take.onExecute((permissionMessenger, args) -> {
+            CommandSender sender = BukkitAdapter.getInstance().of(permissionMessenger);
+            BlobEconomyCommandContext context = BlobEconomyCommandContext.WITH_AMOUNT(args, sender);
+            if (context == null){
+                return;
+            }
+            if (!context.walletOwner().has(context.currency().getKey(), context.amount())) {
+                double missing = context.amount() - context.walletOwner().getBalance(context.currency().getKey());
+                BlobLibMessageAPI.getInstance()
+                        .getMessage("Economy.Cannot-Bankrupt-Others", sender)
+                        .modify(s -> s.replace("%display%", context.currency().display(missing))
+                                .replace("%currency%", context.currency().getDisplayName(context.player()))
+                                .replace("%player%", context.player().getName()))
+                        .toCommandSender(sender);
+                return;
+            }
+            context.walletOwner().withdraw(context.currency().getKey(), context.amount());
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Economy.Withdraw", sender)
+                    .modify(s -> s.replace("%display%", context.currency().display(context.amount()))
+                            .replace("%currency%", context.currency().getDisplayName(context.player()))
+                            .replace("%player%", context.player().getName()))
+                    .toCommandSender(sender);
+        });
+
+        Command set = eco.child("set");
+        set.setParameters(BukkitCommandTarget.ONLINE_PLAYERS(), amountTarget, currencyTarget);
+        set.onExecute((permissionMessenger, args) -> {
+            CommandSender sender = BukkitAdapter.getInstance().of(permissionMessenger);
+            BlobEconomyCommandContext context = BlobEconomyCommandContext.WITH_AMOUNT(args, sender);
+            if (context == null){
+                return;
+            }
+            context.walletOwner().setBalance(context.currency().getKey(), context.amount());
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Economy.Set", sender)
+                    .modify(s -> s.replace("%display%", context.currency().display(context.amount()))
+                            .replace("%currency%", context.currency().getDisplayName(context.player()))
+                            .replace("%player%", context.player().getName()))
+                    .toCommandSender(sender);
+        });
+
+        Command reset = eco.child("reset");
+        reset.setParameters(BukkitCommandTarget.ONLINE_PLAYERS(), currencyTarget);
+        reset.onExecute((permissionMessenger, args) -> {
+            CommandSender sender = BukkitAdapter.getInstance().of(permissionMessenger);
+            BlobEconomyCommandContext context = BlobEconomyCommandContext.WITHOUT_AMOUNT(args, sender);
+            if (context == null){
+                return;
+            }
+            context.walletOwner().reset(context.currency());
+            BlobLibMessageAPI.getInstance()
+                    .getMessage("Economy.Reset", sender)
+                    .modify(s -> s.replace("%currency%", context.currency().getDisplayName(context.player()))
+                            .replace("%player%", context.player().getName()))
+                    .toCommandSender(sender);
         });
     }
 }

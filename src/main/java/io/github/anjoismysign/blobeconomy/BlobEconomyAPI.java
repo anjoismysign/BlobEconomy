@@ -3,8 +3,8 @@ package io.github.anjoismysign.blobeconomy;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
 import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
-import io.github.anjoismysign.bloblib.entities.currency.Currency;
-import io.github.anjoismysign.bloblib.entities.currency.Wallet;
+import io.github.anjoismysign.bloblib.currency.Currency;
+import io.github.anjoismysign.bloblib.currency.Wallet;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,13 +36,18 @@ public class BlobEconomyAPI {
 
     @NotNull
     public Currency getDefaultCurrency(){
-        return Objects.requireNonNull(director.getDepositorManager().getDefaultCurrency(), "There are no currencies");
+        return Objects.requireNonNull(director.getCurrencyDirector().getObjectManager().getObject(director.getConfigManager().getDefaultCurrency()), "There are no currencies");
     }
 
     @NotNull
     public Wallet getBankWallet(@NotNull Player player){
-        BlobDepositor depositor = Objects.requireNonNull(director.getDepositorManager().isWalletOwner(player).orElse(null), "Player not in plugin cache!");
+        BlobDepositor depositor = Objects.requireNonNull(director.getDepositorManager().get(player), "Player not in plugin cache!");
         return depositor.getBankWallet();
+    }
+
+    @Nullable
+    public BlobDepositor getDepositor(@NotNull Player player) {
+        return director.getDepositorManager().get(player);
     }
 
     @NotNull
