@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 
 public class EconomyConfigManager extends EconomyManager {
     private boolean freeTraderCurrencyMarket;
-    private boolean transientUsers;
     private Set<String> alwaysTradableCurrencies;
     private Set<String> withdrawAllKeywords;
     private Set<String> withdrawHalfKeywords;
     private LockedTrading lockedTrading;
+    private String defaultCurrency;
 
     public EconomyConfigManager(EconomyManagerDirector managerDirector) {
         super(managerDirector);
@@ -33,13 +33,13 @@ public class EconomyConfigManager extends EconomyManager {
         ConfigurationSection settingsSection = configDecorator.reloadAndGetSection("Settings");
         lockedTrading = LockedTrading.of(settingsSection.getConfigurationSection("Locked-Trading"));
         freeTraderCurrencyMarket = settingsSection.getBoolean("Free-Trader-Currency-Market");
-        transientUsers = settingsSection.getBoolean("Transient-Users");
         alwaysTradableCurrencies = settingsSection.getStringList("Always-Tradable-Currencies")
                 .stream().map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
         withdrawAllKeywords = settingsSection.getStringList("Withdraw-All-Keywords")
                 .stream().map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
         withdrawHalfKeywords = settingsSection.getStringList("Withdraw-Half-Keywords")
                 .stream().map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
+        defaultCurrency = settingsSection.getString("Default-Currency");
 
         BlobLibInventoryAPI inventoryAPI = BlobLibInventoryAPI.getInstance();
         InventoryDataRegistry<InventoryButton> tradeAmount = inventoryAPI.getInventoryDataRegistry("Trade-Amount");
@@ -65,10 +65,6 @@ public class EconomyConfigManager extends EconomyManager {
         return freeTraderCurrencyMarket;
     }
 
-    public boolean isTransientUsers() {
-        return transientUsers;
-    }
-
     public LockedTrading getLockedTrading() {
         return lockedTrading;
     }
@@ -83,5 +79,9 @@ public class EconomyConfigManager extends EconomyManager {
 
     public Set<String> getWithdrawHalfKeywords() {
         return withdrawHalfKeywords;
+    }
+
+    public String getDefaultCurrency() {
+        return defaultCurrency;
     }
 }

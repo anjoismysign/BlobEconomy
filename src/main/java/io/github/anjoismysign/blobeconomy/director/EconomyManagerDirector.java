@@ -8,6 +8,7 @@ import io.github.anjoismysign.blobeconomy.director.commands.Deposit;
 import io.github.anjoismysign.blobeconomy.director.commands.TraderCmd;
 import io.github.anjoismysign.blobeconomy.director.commands.Withdraw;
 import io.github.anjoismysign.blobeconomy.director.commands.WithdrawerCmd;
+import io.github.anjoismysign.blobeconomy.director.manager.BlobDepositorManager;
 import io.github.anjoismysign.blobeconomy.director.manager.EconomyConfigManager;
 import io.github.anjoismysign.blobeconomy.director.manager.TradeableDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
@@ -30,6 +31,8 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     private WithdrawerUI withdrawerUI;
     private TraderUI traderUI;
     private BankUI bankUI;
+
+    private BlobDepositorManager depositorManager;
 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
@@ -129,25 +132,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         getCurrencyDirector().addAdminChildTabCompleter(BoycottCmd::tabCompleter);
         getCurrencyDirector().addNonAdminChildCommand(executorData -> TraderCmd.command(executorData, this));
         getCurrencyDirector().addNonAdminChildTabCompleter(TraderCmd::tabCompleter);
-        boolean transientUsers = getConfigManager().isTransientUsers();
-        if (transientUsers)
-            addTransientWalletOwnerManager("DepositorManager",
-                    x -> x, crudable ->
-                            new BlobDepositor(crudable, this),
-                    "BlobDepositor",
-                    true,
-                    DepositorLoadEvent::new,
-                    DepositorUnloadEvent::new,
-                    EventPriority.NORMAL,
-                    EventPriority.NORMAL);
-        else
-            addWalletOwnerManager("DepositorManager",
-                    x -> x, crudable ->
-                            new BlobDepositor(crudable, this),
-                    "BlobDepositor",
-                    true,
-                    DepositorLoadEvent::new,
-                    DepositorUnloadEvent::new);
+        depositorManager = new BlobDepositorManager(this);
         getDepositorManager().setNotEnoughEvent(notEnoughBalance -> {
             WalletOwner walletOwner = notEnoughBalance.owner();
             BlobDepositor blobDepositor = (BlobDepositor) walletOwner;
@@ -212,8 +197,8 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     }
 
     @NotNull
-    public final WalletOwnerManager<BlobDepositor> getDepositorManager() {
-        return getWalletOwnerManager("DepositorManager", BlobDepositor.class);
+    public final BlobDepositorManager getDepositorManager() {
+        return depositorManager;
     }
 
     @NotNull
