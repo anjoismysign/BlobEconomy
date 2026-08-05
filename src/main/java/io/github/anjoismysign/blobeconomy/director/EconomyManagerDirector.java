@@ -15,16 +15,13 @@ import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
 import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
-import io.github.anjoismysign.blobeconomy.events.DepositorLoadEvent;
-import io.github.anjoismysign.blobeconomy.events.DepositorUnloadEvent;
+import io.github.anjoismysign.blobeconomy.economy.BlobMultiEconomy;
 import io.github.anjoismysign.bloblib.entities.GenericManagerDirector;
 import io.github.anjoismysign.bloblib.entities.ObjectDirector;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.entities.currency.Wallet;
-import io.github.anjoismysign.bloblib.entities.currency.WalletOwner;
-import io.github.anjoismysign.bloblib.entities.currency.WalletOwnerManager;
+import net.milkbowl.vault.economy.wrappers.MultiEconomyWrapper;
 import org.bukkit.Bukkit;
-import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
 
 public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> {
@@ -134,8 +131,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         getCurrencyDirector().addNonAdminChildTabCompleter(TraderCmd::tabCompleter);
         depositorManager = new BlobDepositorManager(this);
         getDepositorManager().setNotEnoughEvent(notEnoughBalance -> {
-            WalletOwner walletOwner = notEnoughBalance.owner();
-            BlobDepositor blobDepositor = (BlobDepositor) walletOwner;
+            BlobDepositor blobDepositor = notEnoughBalance.owner();
             String currency = notEnoughBalance.currency();
             double missing = notEnoughBalance.missing();
             Wallet bankWallet = blobDepositor.getBankWallet();
@@ -143,6 +139,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
             if (current < missing){
                 return false;
             }
+            blobDepositor.deposit(currency, missing);
             bankWallet.put(currency, current - missing);
             return true;
         });
@@ -152,12 +149,12 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 traderUI = TraderUI.getInstance(this);
                 bankUI = BankUI.getInstance(this);
                 Bukkit.getScheduler().runTask(getPlugin(), () -> {
-                    getDepositorManager().registerEconomy(manager.getObject("default"),
-                            getCurrencyDirector());
-                    getDepositorManager().registerDefaultEconomyCommand(getCurrencyDirector());
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> {
-                        getDepositorManager().registerPlaceholderAPIExpansion();
-                    }, 20L);
+                    String defaultCurrency = getConfigManager().getDefaultCurrency();
+                    defaultCurrency = defaultCurrency == null ? "default" : defaultCurrency;
+                    BlobMultiEconomy economy = new BlobMultiEconomy(getDepositorManager(),
+                            getCurrencyDirector(), defaultCurrency);
+                    if (Bukkit.getPluginManager().getPlugin("Vault") != null)
+                        new MultiEconomyWrapper(economy).registerProviders(true);
                     BankCommand.INSTANCE.load();
                     BlobEconomyCommand.INSTANCE.load();
                 });

@@ -85,6 +85,11 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>github</id>
+            <name>GitHub anjoismysign Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/anjoismysign/VaultAPI2</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -98,6 +103,12 @@
             <groupId>io.github.anjoismysign</groupId>
             <artifactId>bloblib</artifactId>
             <version>1.698.32</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>vaultapi</artifactId>
+            <version>1.7.7</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

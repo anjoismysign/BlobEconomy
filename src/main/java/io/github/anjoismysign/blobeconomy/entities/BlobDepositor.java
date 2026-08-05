@@ -12,6 +12,7 @@ import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.entities.ObjectManager;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.entities.currency.Wallet;
+import io.github.anjoismysign.bloblib.entities.currency.WalletHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class BlobDepositor {
+public class BlobDepositor implements WalletHolder {
     private final Wallet wallet = new Wallet();
     private final Wallet bankWallet = new Wallet();
     private final EconomyManagerDirector director;
