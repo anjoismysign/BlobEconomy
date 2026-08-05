@@ -45,6 +45,11 @@ public class BlobEconomyAPI {
         return depositor.getBankWallet();
     }
 
+    @Nullable
+    public BlobDepositor getDepositor(@NotNull Player player) {
+        return director.getDepositorManager().get(player);
+    }
+
     @NotNull
     public Collection<Currency> getAllCurrencies(){
         return director.getCurrencyDirector().getObjectManager().values();
