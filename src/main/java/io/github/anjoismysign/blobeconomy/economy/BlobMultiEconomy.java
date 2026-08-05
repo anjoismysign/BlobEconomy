@@ -1,10 +1,12 @@
 package io.github.anjoismysign.blobeconomy.economy;
 
-import io.github.anjoismysign.blobeconomy.director.manager.BlobDepositorManager;
+import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.bloblib.entities.ObjectDirector;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import net.milkbowl.vault.economy.IdentityEconomy;
 import net.milkbowl.vault.economy.MultiEconomy;
+import net.milkbowl.vault.economy.wrappers.MultiEconomyWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,13 +27,16 @@ public class BlobMultiEconomy implements MultiEconomy {
     private final Map<String, CurrencyEconomy> implementations;
     private final CurrencyEconomy defaultEconomy;
 
-    public BlobMultiEconomy(BlobDepositorManager depositorManager,
-                            ObjectDirector<Currency> currencyDirector,
-                            String defaultCurrency) {
+    public static void load(@NotNull EconomyManagerDirector director){
+        new MultiEconomyWrapper(new BlobMultiEconomy(director)).registerProviders(true);
+    }
+
+    private BlobMultiEconomy(EconomyManagerDirector director) {
+        ObjectDirector<Currency> currencyDirector = director.getCurrencyDirector();
         this.implementations = new HashMap<>();
         currencyDirector.getObjectManager().values().forEach(currency ->
-                implementations.put(currency.getKey(), new CurrencyEconomy(currency, depositorManager)));
-        CurrencyEconomy defaultImplementation = implementations.get(defaultCurrency);
+                implementations.put(currency.getKey(), new CurrencyEconomy(currency, director.getDepositorManager())));
+        CurrencyEconomy defaultImplementation = implementations.get(director.getConfigManager().getDefaultCurrency());
         defaultImplementation = defaultImplementation == null ? implementations.get("default") : defaultImplementation;
         this.defaultEconomy = Objects.requireNonNull(defaultImplementation, "There are no currencies");
     }

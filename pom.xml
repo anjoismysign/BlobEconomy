@@ -13,7 +13,7 @@
 
     <properties>
         <minecraft.version>1.21.5</minecraft.version>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -86,6 +86,10 @@
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
             <id>github</id>
             <name>GitHub anjoismysign Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/anjoismysign/VaultAPI2</url>
@@ -109,6 +113,12 @@
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>vaultapi</artifactId>
             <version>1.7.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.6</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

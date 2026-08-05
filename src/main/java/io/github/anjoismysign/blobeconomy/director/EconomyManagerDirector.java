@@ -20,16 +20,24 @@ import io.github.anjoismysign.bloblib.entities.GenericManagerDirector;
 import io.github.anjoismysign.bloblib.entities.ObjectDirector;
 import io.github.anjoismysign.bloblib.entities.currency.Currency;
 import io.github.anjoismysign.bloblib.entities.currency.Wallet;
-import net.milkbowl.vault.economy.wrappers.MultiEconomyWrapper;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> {
+    private static final Pattern pattern = Pattern.compile("^.");
     private WithdrawerUI withdrawerUI;
     private TraderUI traderUI;
     private BankUI bankUI;
 
-    private BlobDepositorManager depositorManager;
+    private final BlobDepositorManager depositorManager;
 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
@@ -149,12 +157,11 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 traderUI = TraderUI.getInstance(this);
                 bankUI = BankUI.getInstance(this);
                 Bukkit.getScheduler().runTask(getPlugin(), () -> {
-                    String defaultCurrency = getConfigManager().getDefaultCurrency();
-                    defaultCurrency = defaultCurrency == null ? "default" : defaultCurrency;
-                    BlobMultiEconomy economy = new BlobMultiEconomy(getDepositorManager(),
-                            getCurrencyDirector(), defaultCurrency);
-                    if (Bukkit.getPluginManager().getPlugin("Vault") != null)
-                        new MultiEconomyWrapper(economy).registerProviders(true);
+                    if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
+                        BlobMultiEconomy.load(this);
+                    }
+                    instantiateBlobPHExpansion("economy", expansion ->
+                            expansion.putStartsWith("", this::economyPlaceholder));
                     BankCommand.INSTANCE.load();
                     BlobEconomyCommand.INSTANCE.load();
                 });
@@ -201,5 +208,50 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     @NotNull
     public final EconomyConfigManager getConfigManager() {
         return getManager("ConfigManager", EconomyConfigManager.class);
+    }
+
+    @Nullable
+    private String economyPlaceholder(@NotNull OfflinePlayer offlinePlayer, @NotNull String identifier) {
+        String[] split = identifier.split("_");
+        if (split.length != 2) {
+            return null;
+        }
+        Set<String> customCrypto = getCurrencyDirector().getObjectManager().keys();
+        if (!customCrypto.contains(split[0])) {
+            return "Invalid currency: " + split[0];
+        }
+        Optional<BlobDepositor> optional = getDepositorManager().isWalletOwner(offlinePlayer.getUniqueId());
+        if (optional.isEmpty()) {
+            return "Invalid player: " + offlinePlayer.getName();
+        }
+        BlobDepositor walletOwner = optional.get();
+        Currency currency = getCurrencyDirector().getObjectManager().getObject(split[0]);
+        String subIdentifier = split[1];
+        Player player = Bukkit.getPlayer(offlinePlayer.getUniqueId());
+        switch (subIdentifier) {
+            case "bankdisplay":
+                Wallet bankWallet = walletOwner.getBankWallet();
+                return currency.display(bankWallet.balance(currency.getKey()));
+            case "display":
+                return currency.display(walletOwner.getBalance(currency.getKey()));
+            case "balance":
+                return "" + walletOwner.getBalance(currency.getKey());
+            case "displayName":
+                if (player == null) {
+                    return currency.getDisplayName();
+                }
+                return currency.getDisplayName(player);
+            case "capitalizeDisplayName":
+                String displayName;
+                if (player == null) {
+                    displayName = currency.getDisplayName();
+                } else {
+                    displayName = currency.getDisplayName(player);
+                }
+                displayName = pattern.matcher(displayName).replaceFirst(m -> m.group().toUpperCase(Locale.ROOT));
+                return displayName;
+            default:
+                return "Invalid sub-identifier: " + subIdentifier;
+        }
     }
 }
