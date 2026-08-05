@@ -1,8 +1,8 @@
 package io.github.anjoismysign.blobeconomy;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
-import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.tradeable.Tradeable;
 import io.github.anjoismysign.bloblib.currency.Currency;
 import io.github.anjoismysign.bloblib.currency.Wallet;
 import org.bukkit.entity.Player;

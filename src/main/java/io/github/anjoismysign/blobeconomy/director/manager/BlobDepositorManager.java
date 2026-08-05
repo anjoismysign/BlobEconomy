@@ -1,8 +1,8 @@
 package io.github.anjoismysign.blobeconomy.director.manager;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
-import io.github.anjoismysign.blobeconomy.entities.NotEnoughBalance;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.NotEnoughBalance;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

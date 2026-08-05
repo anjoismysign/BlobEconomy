@@ -3,7 +3,7 @@ package io.github.anjoismysign.blobeconomy.director.manager;
 import io.github.anjoismysign.blobeconomy.director.EconomyManager;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
-import io.github.anjoismysign.blobeconomy.entities.LockedTrading;
+import io.github.anjoismysign.blobeconomy.domain.LockedTrading;
 import io.github.anjoismysign.bloblib.api.BlobLibInventoryAPI;
 import io.github.anjoismysign.bloblib.domain.ConfigDecorator;
 import io.github.anjoismysign.bloblib.inventory.InventoryButton;

@@ -1,4 +1,4 @@
-package io.github.anjoismysign.blobeconomy.entities.tradeable;
+package io.github.anjoismysign.blobeconomy.domain.tradeable;
 
 import io.github.anjoismysign.anjo.entities.Uber;
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;

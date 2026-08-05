@@ -1,7 +1,7 @@
 package io.github.anjoismysign.blobeconomy.director.ui;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
 import io.github.anjoismysign.blobeconomy.events.DepositorWithdrawEvent;
 import io.github.anjoismysign.bloblib.api.BlobLibInventoryAPI;
 import io.github.anjoismysign.bloblib.api.BlobLibListenerAPI;

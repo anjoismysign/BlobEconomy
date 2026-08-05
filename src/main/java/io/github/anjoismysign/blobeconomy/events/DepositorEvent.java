@@ -1,6 +1,6 @@
 package io.github.anjoismysign.blobeconomy.events;
 
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 

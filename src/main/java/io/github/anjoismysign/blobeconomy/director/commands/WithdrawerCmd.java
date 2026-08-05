@@ -2,7 +2,7 @@ package io.github.anjoismysign.blobeconomy.director.commands;
 
 import io.github.anjoismysign.anjo.entities.Result;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.command.BlobChildCommand;
 import io.github.anjoismysign.bloblib.command.BlobExecutor;

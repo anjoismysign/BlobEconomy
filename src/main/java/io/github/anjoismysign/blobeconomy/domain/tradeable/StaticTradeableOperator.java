@@ -1,4 +1,4 @@
-package io.github.anjoismysign.blobeconomy.entities.tradeable;
+package io.github.anjoismysign.blobeconomy.domain.tradeable;
 
 public record StaticTradeableOperator(double getRate)
         implements TradeableOperator {

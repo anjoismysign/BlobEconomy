@@ -1,7 +1,7 @@
 package io.github.anjoismysign.blobeconomy.director.commands;
 
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.currency.Currency;
 import org.bukkit.Bukkit;

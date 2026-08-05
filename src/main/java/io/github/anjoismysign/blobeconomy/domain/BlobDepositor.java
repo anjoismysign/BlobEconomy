@@ -1,10 +1,10 @@
-package io.github.anjoismysign.blobeconomy.entities;
+package io.github.anjoismysign.blobeconomy.domain;
 
 import io.github.anjoismysign.anjo.entities.Result;
 import io.github.anjoismysign.blobeconomy.BlobEconomyAPI;
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
-import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
+import io.github.anjoismysign.blobeconomy.domain.tradeable.Tradeable;
 import io.github.anjoismysign.blobeconomy.events.DepositorLoadEvent;
 import io.github.anjoismysign.blobeconomy.events.DepositorTradeEvent;
 import io.github.anjoismysign.blobeconomy.events.DepositorTradeFailEvent;

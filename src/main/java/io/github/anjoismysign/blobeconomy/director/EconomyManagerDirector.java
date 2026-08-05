@@ -15,7 +15,7 @@ import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
 import io.github.anjoismysign.blobeconomy.economy.BlobMultiEconomy;
-import io.github.anjoismysign.blobeconomy.entities.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
 import io.github.anjoismysign.bloblib.currency.Currency;
 import io.github.anjoismysign.bloblib.currency.Wallet;
 import io.github.anjoismysign.bloblib.manager.GenericManagerDirector;

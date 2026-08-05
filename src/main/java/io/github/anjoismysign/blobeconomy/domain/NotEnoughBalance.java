@@ -1,4 +1,4 @@
-package io.github.anjoismysign.blobeconomy.entities;
+package io.github.anjoismysign.blobeconomy.domain;
 
 import org.jetbrains.annotations.NotNull;
 

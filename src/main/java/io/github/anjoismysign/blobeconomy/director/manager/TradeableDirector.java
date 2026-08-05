@@ -2,10 +2,10 @@ package io.github.anjoismysign.blobeconomy.director.manager;
 
 import io.github.anjoismysign.blobeconomy.director.EconomyManagerDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
-import io.github.anjoismysign.blobeconomy.entities.tradeable.DynamicTradeableOperator;
-import io.github.anjoismysign.blobeconomy.entities.tradeable.StaticTradeableOperator;
-import io.github.anjoismysign.blobeconomy.entities.tradeable.Tradeable;
-import io.github.anjoismysign.blobeconomy.entities.tradeable.TradeableOperator;
+import io.github.anjoismysign.blobeconomy.domain.tradeable.DynamicTradeableOperator;
+import io.github.anjoismysign.blobeconomy.domain.tradeable.StaticTradeableOperator;
+import io.github.anjoismysign.blobeconomy.domain.tradeable.Tradeable;
+import io.github.anjoismysign.blobeconomy.domain.tradeable.TradeableOperator;
 import io.github.anjoismysign.bloblib.api.BlobLibMessageAPI;
 import io.github.anjoismysign.bloblib.exception.ConfigurationFieldException;
 import io.github.anjoismysign.bloblib.manager.ObjectDirector;
