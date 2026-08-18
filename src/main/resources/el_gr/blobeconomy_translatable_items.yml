@@ -19,3 +19,86 @@ BlobEconomy:
       - ' '
       - '&7Ανταλλάσσοντας &f%from%'
       - '&7με &f%currency%'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6Ανάληψη'
+      Lore:
+        - '&7Κάντε κλικ για ανάληψη χρημάτων'
+  Deposit:
+    ItemStack:
+      ItemName: '&6Κατάθεση'
+      Lore:
+        - '&7Κάντε κλικ για κατάθεση χρημάτων'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6Όλα στο λογαριασμό'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό κατάθεσης: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Μισό λογαριασμού'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό κατάθεσης: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό κατάθεσης: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Συγκεκριμένο ποσό'
+      Lore:
+        - '&7Κάντε κλικ για να εισάγετε το ποσό'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6Όλα στο λογαριασμό'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό προς ανάληψη: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Μισό του λογαριασμού'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό προς ανάληψη: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό προς ανάληψη: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Συγκεκριμένο ποσό'
+      Lore:
+        - '&7Κάντε κλικ για να εισάγετε το ποσό'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6Όλα στον λογαριασμό'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό για ανάληψη: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Μισό του λογαριασμού'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό για ανάληψη: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&6Συναλλαγή 20%'
+      Lore:
+        - '&7Τρέχον υπόλοιπο: %balance%'
+        - '&7Ποσό για ανάληψη: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Συγκεκριμένο ποσό'
+      Lore:
+        - '&7Κάντε κλικ για να εισάγετε το ποσό'

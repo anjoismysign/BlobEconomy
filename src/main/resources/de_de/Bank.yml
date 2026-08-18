@@ -6,16 +6,8 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   Withdraw:
-    ItemStack:
-      Material: RED_DYE
-      ItemName: '&6Abheben'
-      Lore:
-        - '&7Klicke, um Geld abzuheben'
+    ItemStack: Bank.Withdraw
     Slot: 11
   Deposit:
-    ItemStack:
-      Material: SLIME_BALL
-      ItemName: '&6Einzahlen'
-      Lore:
-        - '&7Klicke, um Geld einzuzahlen'
+    ItemStack: Bank.Deposit
     Slot: 15

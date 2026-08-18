@@ -6,33 +6,14 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   All:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6Alles op de rekening'
-      Lore:
-      - '&7Huidig saldo: %balance%'
-      - '&7Te opnemen bedrag: %amount%'
+    ItemStack: Trade-Amount.All
     Slot: 10
   Half:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6Helft van de rekening'
-      Lore:
-      - '&7Huidig saldo: %balance%'
-      - '&7Te opnemen bedrag: %amount%'
+    ItemStack: Trade-Amount.Half
     Slot: 12
   One-Fifth:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6Wissel 20%'
-      Lore:
-      - '&7Huidig saldo: %balance%'
-      - '&7Te opnemen bedrag: %amount%'
+    ItemStack: Trade-Amount.One-Fifth
     Slot: 14
   Custom:
-    ItemStack:
-      Material: PAPER
-      DisplayName: '&6Specifiek bedrag'
-      Lore:
-      - '&7Click om het bedrag in te voeren'
+    ItemStack: Trade-Amount.Custom
     Slot: 16

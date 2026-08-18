@@ -19,3 +19,86 @@ BlobEconomy:
       - ' '
       - '&7Ruilen van &f%from%'
       - '&7naar &f%currency%'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6Opnemen'
+      Lore:
+        - '&7Klik om geld op te nemen'
+  Deposit:
+    ItemStack:
+      ItemName: '&6Storten'
+      Lore:
+        - '&7Klik om geld te storten'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6Alles op de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om te storten: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6De helft van de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om te storten: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om te storten: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Specifiek bedrag'
+      Lore:
+        - '&7Klik om het bedrag in te voeren'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6Alles in de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om op te nemen: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6De helft van de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om op te nemen: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Bedrag om op te nemen: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Specifiek bedrag'
+      Lore:
+        - '&7Klik om het bedrag in te voeren'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6Alles op de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Te opnemen bedrag: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Helft van de rekening'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Te opnemen bedrag: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&6Wissel 20%'
+      Lore:
+        - '&7Huidig saldo: %balance%'
+        - '&7Te opnemen bedrag: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Specifiek bedrag'
+      Lore:
+        - '&7Click om het bedrag in te voeren'

@@ -19,3 +19,86 @@ BlobEconomy:
       - ' '
       - '&7Handel: &f%from%'
       - '&7zu &f%currency%'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6Abheben'
+      Lore:
+        - '&7Klicke, um Geld abzuheben'
+  Deposit:
+    ItemStack:
+      ItemName: '&6Einzahlen'
+      Lore:
+        - '&7Klicke, um Geld einzuzahlen'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6Alles im Konto'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to deposit: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Die Hälfte des Kontos'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to deposit: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to deposit: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Bestimmter Betrag'
+      Lore:
+        - '&7Klicken Sie, um den Betrag einzugeben'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6Alles im Konto'
+      Lore:
+        - '&7Aktueller Kontostand: %balance%'
+        - '&7Auszuzahlender Betrag: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Die Hälfte des Kontos'
+      Lore:
+        - '&7Aktueller Kontostand: %balance%'
+        - '&7Auszuzahlender Betrag: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Aktueller Kontostand: %balance%'
+        - '&7Auszuzahlender Betrag: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Bestimmter Betrag'
+      Lore:
+        - '&7Klicken Sie, um den Betrag einzugeben'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6Alles auf dem Konto'
+      Lore:
+        - '&7Aktueller Kontostand: %balance%'
+        - '&7Zu behebender Betrag: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Hälfte des Kontos'
+      Lore:
+        - '&7Aktueller Kontostand: %balance%'
+        - '&7Zu behebender Betrag: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620% handeln'
+      Lore:
+        - '&7Aktueller Kontostand: %balance%'
+        - '&7Zu behebender Betrag: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Bestimmter Betrag'
+      Lore:
+        - '&7Klicken Sie, um den Betrag einzugeben'

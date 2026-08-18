@@ -19,3 +19,86 @@ BlobEconomy:
       - ' '
       - '&7Échange de &f%from%'
       - '&7avec &f%currency%'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6Retirer'
+      Lore:
+        - '&7Cliquez pour retirer de l''argent'
+  Deposit:
+    ItemStack:
+      ItemName: '&6Déposer'
+      Lore:
+        - '&7Cliquez pour déposer de l''argent'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6Tout dans le compte'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à déposer : %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Moitié du compte'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à déposer : %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à déposer : %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Montant spécifique'
+      Lore:
+        - '&7Cliquez pour saisir le montant'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6Tout dans le compte'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à retirer : %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Moitié du compte'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à retirer : %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à retirer : %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Montant spécifique'
+      Lore:
+        - '&7Cliquez pour entrer le montant'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6Tout le solde du compte'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à retirer : %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6La moitié du solde'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à retirer : %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&6Échanger 20%'
+      Lore:
+        - '&7Solde actuel : %balance%'
+        - '&7Montant à retirer : %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Montant spécifique'
+      Lore:
+        - '&7Cliquez pour entrer le montant'

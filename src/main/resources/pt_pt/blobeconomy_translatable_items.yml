@@ -19,3 +19,86 @@ BlobEconomy:
       - ' '
       - '&7Trocando de &f%from%'
       - '&7para &f%currency%'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6Sacar'
+      Lore:
+        - '&7Clique para sacar dinheiro'
+  Deposit:
+    ItemStack:
+      ItemName: '&6Depositar'
+      Lore:
+        - '&7Clique para depositar dinheiro'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6Tudo na conta'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Valor a depositar: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Metade da conta'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Valor a depositar: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Valor a depositar: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Valor específico'
+      Lore:
+        - '&7Clique para inserir o valor'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6Tudo na conta'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Valor a sacar: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Metade da conta'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Valor a sacar: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Valor a sacar: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Quantia específica'
+      Lore:
+        - '&7Clique para inserir o valor'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6Tudo na conta'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Quantidade a sacar: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Metade da conta'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Quantidade a sacar: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&6Negociar 20%'
+      Lore:
+        - '&7Saldo atual: %balance%'
+        - '&7Quantidade a sacar: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Quantidade específica'
+      Lore:
+        - '&7Clique para inserir a quantidade'

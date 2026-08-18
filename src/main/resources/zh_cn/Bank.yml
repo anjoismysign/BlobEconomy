@@ -6,16 +6,8 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   Withdraw:
-    ItemStack:
-      Material: RED_DYE
-      ItemName: '&6取款'
-      Lore:
-        - '&7点击取款'
+    ItemStack: Bank.Withdraw
     Slot: 11
   Deposit:
-    ItemStack:
-      Material: SLIME_BALL
-      ItemName: '&6存款'
-      Lore:
-        - '&7点击存款'
+    ItemStack: Bank.Deposit
     Slot: 15

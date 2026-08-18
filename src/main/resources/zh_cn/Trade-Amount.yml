@@ -6,33 +6,14 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   All:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6账户中的所有金额'
-      Lore:
-      - '&7当前余额: %balance%'
-      - '&7提取金额: %amount%'
+    ItemStack: Trade-Amount.All
     Slot: 10
   Half:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6账户中的一半'
-      Lore:
-      - '&7当前余额: %balance%'
-      - '&7提取金额: %amount%'
+    ItemStack: Trade-Amount.Half
     Slot: 12
   One-Fifth:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6交易 20%'
-      Lore:
-      - '&7当前余额: %balance%'
-      - '&7提取金额: %amount%'
+    ItemStack: Trade-Amount.One-Fifth
     Slot: 14
   Custom:
-    ItemStack:
-      Material: PAPER
-      DisplayName: '&6指定金额'
-      Lore:
-      - '&7点击输入金额'
+    ItemStack: Trade-Amount.Custom
     Slot: 16

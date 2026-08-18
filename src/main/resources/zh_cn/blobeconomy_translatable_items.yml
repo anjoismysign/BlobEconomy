@@ -18,3 +18,86 @@ BlobEconomy:
       - '%change%'
       - ' '
       - '&7以 &f%from%&7 与 &f%货币%&7 进行交换'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6取款'
+      Lore:
+        - '&7点击取款'
+  Deposit:
+    ItemStack:
+      ItemName: '&6存款'
+      Lore:
+        - '&7点击存款'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6账户中的全部'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7存入金额: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6账户的一半'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7存入金额: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7存入金额: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6指定金额'
+      Lore:
+        - '&7点击输入金额'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6账户中的所有内容'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7取款金额: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6账户的一半'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7取款金额: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7取款金额: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6指定金额'
+      Lore:
+        - '&7点击输入金额'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6账户中的所有金额'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7提取金额: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6账户中的一半'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7提取金额: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&6交易 20%'
+      Lore:
+        - '&7当前余额: %balance%'
+        - '&7提取金额: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6指定金额'
+      Lore:
+        - '&7点击输入金额'

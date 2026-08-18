@@ -19,3 +19,86 @@ BlobEconomy:
       - ' '
       - '&7Обменять &f%from%'
       - '&7на &f%валюта%'
+Bank:
+  Withdraw:
+    ItemStack:
+      ItemName: '&6Снять'
+      Lore:
+        - '&7Нажмите, чтобы снять деньги'
+  Deposit:
+    ItemStack:
+      ItemName: '&6Внести'
+      Lore:
+        - '&7Нажмите, чтобы внести деньги'
+BankDeposit:
+  All:
+    ItemStack:
+      ItemName: '&6Все в аккаунте'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма к депозиту: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Половина счета'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма к депозиту: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма к депозиту: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Конкретная сумма'
+      Lore:
+        - '&7Нажмите, чтобы ввести сумму'
+BankWithdraw:
+  All:
+    ItemStack:
+      ItemName: '&6Все на счете'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма к снятию: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Половина счета'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма к снятию: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&620%'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма к снятию: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Конкретная сумма'
+      Lore:
+        - '&7Нажмите, чтобы ввести сумму'
+Trade-Amount:
+  All:
+    ItemStack:
+      ItemName: '&6Все на счету'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма для снятия: %amount%'
+  Half:
+    ItemStack:
+      ItemName: '&6Половина счета'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма для снятия: %amount%'
+  One-Fifth:
+    ItemStack:
+      ItemName: '&6Торговать 20%'
+      Lore:
+        - '&7Текущий баланс: %balance%'
+        - '&7Сумма для снятия: %amount%'
+  Custom:
+    ItemStack:
+      ItemName: '&6Конкретная сумма'
+      Lore:
+        - '&7Нажмите, чтобы ввести сумму'

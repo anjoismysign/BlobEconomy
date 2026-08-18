@@ -6,33 +6,14 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   All:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Все на счете'
-      Lore:
-        - '&7Текущий баланс: %balance%'
-        - '&7Сумма к снятию: %amount%'
+    ItemStack: BankWithdraw.All
     Slot: 10
   Half:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Половина счета'
-      Lore:
-        - '&7Текущий баланс: %balance%'
-        - '&7Сумма к снятию: %amount%'
+    ItemStack: BankWithdraw.Half
     Slot: 12
   One-Fifth:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&620%'
-      Lore:
-        - '&7Текущий баланс: %balance%'
-        - '&7Сумма к снятию: %amount%'
+    ItemStack: BankWithdraw.One-Fifth
     Slot: 14
   Custom:
-    ItemStack:
-      Material: PAPER
-      ItemName: '&6Конкретная сумма'
-      Lore:
-        - '&7Нажмите, чтобы ввести сумму'
+    ItemStack: BankWithdraw.Custom
     Slot: 16

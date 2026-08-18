@@ -6,33 +6,14 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   All:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6Tout le solde du compte'
-      Lore:
-      - '&7Solde actuel : %balance%'
-      - '&7Montant à retirer : %amount%'
+    ItemStack: Trade-Amount.All
     Slot: 10
   Half:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6La moitié du solde'
-      Lore:
-      - '&7Solde actuel : %balance%'
-      - '&7Montant à retirer : %amount%'
+    ItemStack: Trade-Amount.Half
     Slot: 12
   One-Fifth:
-    ItemStack:
-      Material: DROPPER
-      DisplayName: '&6Échanger 20%'
-      Lore:
-      - '&7Solde actuel : %balance%'
-      - '&7Montant à retirer : %amount%'
+    ItemStack: Trade-Amount.One-Fifth
     Slot: 14
   Custom:
-    ItemStack:
-      Material: PAPER
-      DisplayName: '&6Montant spécifique'
-      Lore:
-      - '&7Cliquez pour entrer le montant'
+    ItemStack: Trade-Amount.Custom
     Slot: 16
