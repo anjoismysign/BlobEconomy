@@ -2,23 +2,21 @@ Locale: ru_ru
 BlobEconomy:
   Tradeable-From:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%валюта%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7Щелкните, чтобы обменять'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7Щелкните, чтобы обменять'
   Tradeable-To:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%валюта%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7Обменять &f%from%'
-      - '&7на &f%валюта%'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7Обменять &f%from%'
+        - '&7на &f%валюта%'
 Bank:
   Withdraw:
     ItemStack:

@@ -2,7 +2,6 @@ Locale: es_es
 BlobEconomy:
   Tradeable-From:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
@@ -11,7 +10,6 @@ BlobEconomy:
         - '&7Click para comerciar'
   Tradeable-To:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'

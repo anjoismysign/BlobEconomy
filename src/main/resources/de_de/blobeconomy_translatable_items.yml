@@ -2,23 +2,21 @@ Locale: de_de
 BlobEconomy:
   Tradeable-From:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%currency%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7Klicken, um zu handeln'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7Klicken, um zu handeln'
   Tradeable-To:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%currency%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7Handel: &f%from%'
-      - '&7zu &f%currency%'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7Handel: &f%from%'
+        - '&7zu &f%currency%'
 Bank:
   Withdraw:
     ItemStack:

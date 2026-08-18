@@ -2,23 +2,21 @@ Locale: nl_nl
 BlobEconomy:
   Tradeable-From:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%currency%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7Klik om te ruilen'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7Klik om te ruilen'
   Tradeable-To:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%currency%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7Ruilen van &f%from%'
-      - '&7naar &f%currency%'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7Ruilen van &f%from%'
+        - '&7naar &f%currency%'
 Bank:
   Withdraw:
     ItemStack:

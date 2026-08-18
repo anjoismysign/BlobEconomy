@@ -2,22 +2,20 @@ Locale: zh_cn
 BlobEconomy:
   Tradeable-From:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%货币%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7点击进行交易'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7点击进行交易'
   Tradeable-To:
     ItemStack:
-      Material: PAPER
       ItemName: '&f%货币%'
       Lore:
-      - '&7%currentRate%'
-      - '%change%'
-      - ' '
-      - '&7以 &f%from%&7 与 &f%货币%&7 进行交换'
+        - '&7%currentRate%'
+        - '%change%'
+        - ' '
+        - '&7以 &f%from%&7 与 &f%货币%&7 进行交换'
 Bank:
   Withdraw:
     ItemStack:
