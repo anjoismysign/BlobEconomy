@@ -61,15 +61,6 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                 "pt_pt/blobeconomy_translatable_items",
                 "ru_ru/blobeconomy_translatable_items",
                 "zh_cn/blobeconomy_translatable_items");
-        registerBlobInventory("Withdraw",
-                "es_es/Withdraw",
-                "de_de/Withdraw",
-                "el_gr/Withdraw",
-                "fr_fr/Withdraw",
-                "nl_nl/Withdraw",
-                "pt_pt/Withdraw",
-                "ru_ru/Withdraw",
-                "zh_cn/Withdraw");
         registerBlobInventory("Trade",
                 "es_es/Trade",
                 "de_de/Trade",

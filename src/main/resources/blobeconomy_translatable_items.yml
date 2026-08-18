@@ -2,7 +2,7 @@ BlobEconomy:
   Tradeable-From:
     ItemStack:
       Material: PAPER
-      DisplayName: '&f%currency%'
+      ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
         - '%change%'
@@ -11,10 +11,107 @@ BlobEconomy:
   Tradeable-To:
     ItemStack:
       Material: PAPER
-      DisplayName: '&f%currency%'
+      ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
         - '%change%'
         - ' '
         - '&7Trading &f%from%'
         - '&7to &f%currency%'
+Bank:
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Withdraw'
+      Lore:
+        - '&7Click to withdraw money'
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Deposit'
+      Lore:
+        - '&7Click to deposit money'
+BankDeposit:
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Everything in the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to deposit: %amount%'
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Half the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to deposit: %amount%'
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&620%'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to deposit: %amount%'
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6Specific amount'
+      Lore:
+        - '&7Click to enter the amount'
+BankWithdraw:
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Everything in the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Half the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&620%'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6Specific amount'
+      Lore:
+        - '&7Click to enter the amount'
+Trade-Amount:
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Everything in the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Half the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Trade 20%'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6Specific amount'
+      Lore:
+        - '&7Click to enter the amount'

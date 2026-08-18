@@ -3,7 +3,7 @@ BlobEconomy:
   Tradeable-From:
     ItemStack:
       Material: PAPER
-      DisplayName: '&f%currency%'
+      ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
         - '%change%'
@@ -12,7 +12,7 @@ BlobEconomy:
   Tradeable-To:
     ItemStack:
       Material: PAPER
-      DisplayName: '&f%currency%'
+      ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
         - '%change%'

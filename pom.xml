@@ -6,7 +6,7 @@
 
     <groupId>io.github.anjoismysign</groupId>
     <artifactId>blobeconomy</artifactId>
-    <version>1.702.0</version>
+    <version>1.702.1</version>
     <packaging>jar</packaging>
 
     <name>BlobEconomy</name>

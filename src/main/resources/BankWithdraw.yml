@@ -5,33 +5,14 @@ Buttons:
     ItemStack: BlobLib.Background
     Slot: 0-26
   All:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Everything in the account'
-      Lore:
-        - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+    ItemStack: BankWithdraw.All
     Slot: 10
   Half:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Half the account'
-      Lore:
-        - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+    ItemStack: BankWithdraw.Half
     Slot: 12
   One-Fifth:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&620%'
-      Lore:
-        - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+    ItemStack: BankWithdraw.One-Fifth
     Slot: 14
   Custom:
-    ItemStack:
-      Material: PAPER
-      ItemName: '&6Specific amount'
-      Lore:
-        - '&7Click to enter the amount'
+    ItemStack: BankWithdraw.Custom
     Slot: 16
