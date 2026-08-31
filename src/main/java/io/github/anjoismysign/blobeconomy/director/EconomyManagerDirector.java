@@ -14,8 +14,8 @@ import io.github.anjoismysign.blobeconomy.director.manager.TradeableDirector;
 import io.github.anjoismysign.blobeconomy.director.ui.BankUI;
 import io.github.anjoismysign.blobeconomy.director.ui.TraderUI;
 import io.github.anjoismysign.blobeconomy.director.ui.WithdrawerUI;
-import io.github.anjoismysign.blobeconomy.economy.BlobMultiEconomy;
 import io.github.anjoismysign.blobeconomy.domain.BlobDepositor;
+import io.github.anjoismysign.blobeconomy.economy.BlobMultiEconomy;
 import io.github.anjoismysign.bloblib.currency.Currency;
 import io.github.anjoismysign.bloblib.currency.Wallet;
 import io.github.anjoismysign.bloblib.manager.GenericManagerDirector;
@@ -216,16 +216,20 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
         if (split.length != 2) {
             return null;
         }
+        String currencyName = split[0];
         Set<String> customCrypto = getCurrencyDirector().getObjectManager().keys();
-        if (!customCrypto.contains(split[0])) {
-            return "Invalid currency: " + split[0];
+        if (!customCrypto.contains(currencyName)) {
+            return "Invalid currency: " + currencyName;
         }
         Optional<BlobDepositor> optional = getDepositorManager().isWalletOwner(offlinePlayer.getUniqueId());
         if (optional.isEmpty()) {
             return "Invalid player: " + offlinePlayer.getName();
         }
         BlobDepositor walletOwner = optional.get();
-        Currency currency = getCurrencyDirector().getObjectManager().getObject(split[0]);
+        @Nullable Currency currency = getCurrencyDirector().getObjectManager().getObject(currencyName);
+        if (currency == null){
+            return "Not a currency: "+currencyName;
+        }
         String subIdentifier = split[1];
         Player player = Bukkit.getPlayer(offlinePlayer.getUniqueId());
         switch (subIdentifier) {

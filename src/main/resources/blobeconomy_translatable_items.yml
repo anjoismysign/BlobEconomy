@@ -18,3 +18,42 @@ BlobEconomy:
         - ' '
         - '&7Trading &f%from%'
         - '&7to &f%currency%'
+  Withdraw:
+    ItemStack:
+      Material: RED_DYE
+      ItemName: '&6Withdraw'
+      Lore:
+        - '&7Click to withdraw money'
+  Deposit:
+    ItemStack:
+      Material: SLIME_BALL
+      ItemName: '&6Deposit'
+      Lore:
+        - '&7Click to deposit money'
+  All:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Everything in the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  Half:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Half the account'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  One-Fifth:
+    ItemStack:
+      Material: DROPPER
+      ItemName: '&6Trade 20%'
+      Lore:
+        - '&7Current balance: %balance%'
+        - '&7Amount to withdraw: %amount%'
+  Custom:
+    ItemStack:
+      Material: PAPER
+      ItemName: '&6Specific amount'
+      Lore:
+        - '&7Click to enter the amount'

@@ -2,39 +2,16 @@ Title: '&lCURRENCY TRADING > AMOUNT'
 Size: 27
 Buttons:
   Background:
-    ItemStack: BlobLib.Background
     Slot: 0-26
   All:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Everything in the account'
-      Lore:
-        - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+    ItemStack: BlobEconomy.All
     Slot: 10
   Half:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Half the account'
-      Lore:
-        - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+    ItemStack: BlobEconomy.Half
     Slot: 12
   One-Fifth:
-    ItemStack:
-      Material: DROPPER
-      ItemName: '&6Trade 20%'
-      Lore:
-        - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+    ItemStack: BlobEconomy.One-Fifth
     Slot: 14
   Custom:
-    ItemStack:
-      Material: PAPER
-      ItemName: '&6Specific amount'
-      Lore:
-        - '&7Click to enter the amount'
+    ItemStack: BlobEconomy.Custom
     Slot: 16
-#Built with BlobLib's inventory framework.
-#If you wish to push its limits,
-#feel free contacting anjoismysign (preferably on Discord)

@@ -1,20 +1,11 @@
 Title: '&lBANK'
 Size: 27
 Buttons:
-  Line:
-    ItemStack: BlobLib.Background
+  Background:
     Slot: 0-26
   Withdraw:
-    ItemStack:
-      Material: RED_DYE
-      ItemName: '&6Withdraw'
-      Lore:
-        - '&7Click to withdraw money'
+    ItemStack: BlobEconomy.Withdraw
     Slot: 11
   Deposit:
-    ItemStack:
-      Material: SLIME_BALL
-      ItemName: '&6Deposit'
-      Lore:
-        - '&7Click to deposit money'
+    ItemStack: BlobEconomy.Deposit
     Slot: 15
