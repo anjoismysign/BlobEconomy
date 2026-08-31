@@ -42,7 +42,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
     public EconomyManagerDirector(BlobEconomy plugin) {
         super(plugin);
         getRealFileManager().unpackYamlFile("/currency", "default");
-        registerBlobInventory("Withdraw","Trade","Trade-Amount","Bank","BankCurrency","BankDeposit","BankWithdraw");
+        registerBlobInventory("Trade","Trade-Amount","Bank","BankCurrency","BankDeposit","BankWithdraw");
         addManager("ConfigManager", new EconomyConfigManager(this));
         addCurrencyDirector("Currency");
         addManager("TradeableDirector", new TradeableDirector(this));
