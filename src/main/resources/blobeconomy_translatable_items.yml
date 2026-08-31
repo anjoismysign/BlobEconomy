@@ -2,7 +2,7 @@ BlobEconomy:
   Tradeable-From:
     ItemStack:
       Material: PAPER
-      DisplayName: '&f%currency%'
+      ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
         - '%change%'
@@ -11,7 +11,7 @@ BlobEconomy:
   Tradeable-To:
     ItemStack:
       Material: PAPER
-      DisplayName: '&f%currency%'
+      ItemName: '&f%currency%'
       Lore:
         - '&7%currentRate%'
         - '%change%'
@@ -33,24 +33,24 @@ BlobEconomy:
   All:
     ItemStack:
       Material: DROPPER
-      ItemName: '&6Everything in the account'
+      ItemName: '&6Everything'
       Lore:
         - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+        - '&7Amount: %amount%'
   Half:
     ItemStack:
       Material: DROPPER
-      ItemName: '&6Half the account'
+      ItemName: '&6Half'
       Lore:
         - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+        - '&7Amount: %amount%'
   One-Fifth:
     ItemStack:
       Material: DROPPER
-      ItemName: '&6Trade 20%'
+      ItemName: '&620%'
       Lore:
         - '&7Current balance: %balance%'
-        - '&7Amount to withdraw: %amount%'
+        - '&7Amount: %amount%'
   Custom:
     ItemStack:
       Material: PAPER
