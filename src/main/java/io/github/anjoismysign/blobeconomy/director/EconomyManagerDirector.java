@@ -79,7 +79,7 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
                     if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
                         BlobMultiEconomy.load(this);
                     }
-                    instantiateBlobPHExpansion("economy", expansion ->
+                    instantiateBlobPHExpansion(expansion ->
                             expansion.putStartsWith("", this::economyPlaceholder));
                     BankCommand.INSTANCE.load();
                     BlobEconomyCommand.INSTANCE.load();
@@ -136,8 +136,8 @@ public class EconomyManagerDirector extends GenericManagerDirector<BlobEconomy> 
             return null;
         }
         String currencyName = split[0];
-        Set<String> customCrypto = getCurrencyDirector().getObjectManager().keys();
-        if (!customCrypto.contains(currencyName)) {
+        Set<String> customCurrency = getCurrencyDirector().getObjectManager().keys();
+        if (!customCurrency.contains(currencyName)) {
             return "Invalid currency: " + currencyName;
         }
         Optional<BlobDepositor> optional = getDepositorManager().isWalletOwner(offlinePlayer.getUniqueId());
